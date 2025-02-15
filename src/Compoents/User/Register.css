@@ -1,0 +1,11 @@
+
+.box{
+    width: 400px;
+    margin: auto;
+    border: 2px solid black;
+    background-color: white;
+    position: relative;
+}
+.box img{
+    width: 390px;
+}

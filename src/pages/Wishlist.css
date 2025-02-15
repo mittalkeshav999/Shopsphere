@@ -1,0 +1,20 @@
+.cart_box{
+    width: 300px;
+    display: flex;
+    margin: 20px auto auto auto;
+    flex-direction: column;
+}
+.cart_box h5{
+text-align: center;
+}
+.cart_box p{
+    margin: 10px;
+    text-align: center;
+}
+.cart_box button{
+    text-align: center;
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+    padding: 10px ;
+}

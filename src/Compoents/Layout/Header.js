@@ -2,12 +2,19 @@ import React, { useState, useEffect, useContext } from "react";
 import logo from "../../Assets/images/logo.png";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { categories, products } from "../../Data/Data";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faHeart, faPerson, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { LiaTimesSolid } from "react-icons/lia";
+import { SlUser } from "react-icons/sl";
+import { CiHeart } from "react-icons/ci";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { HiMiniBars3 } from "react-icons/hi2";
+
+
 import { useSearch } from "../Product/SearchContext";
 import { useCurrency } from "../Product/CurrencyContext";
 import { useCart } from "../Product/CartContext";
 import { AuthContext } from "../Product/AuthContext";
+import { CiSearch } from "react-icons/ci";
+
 
 export default function Header() {
   const { user } = useContext(AuthContext);
@@ -44,18 +51,18 @@ export default function Header() {
   };
 
   return (
-    <header className="d-flex position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-1 justify-content-between">
+    <header className="d-flex position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-1">
 
-      <div>
+      <div className="d-flex me-auto">
+
         <Link to="/">
           <img style={{ height: "20px" }} src={logo} alt="Logo" />
         </Link>
-      </div>
-      <button className="d-lg-none border-0 bg-transparent" onClick={() => setMenuOpen(!menuOpen)}>
-        <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} size="lg" />
+      <button className="d-flex border-0 bg-transparent ms-3 align-items-center" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <LiaTimesSolid /> : <HiMiniBars3 />}
       </button>
 
-      <div className={`d-lg-flex ${menuOpen ? "d-flex flex-column position-absolute bg-white w-100 top-100 start-0 shadow p-3" : "d-none"} gap-3 align-items-center`}>
+      <div className={` ${menuOpen ? "d-flex flex-column position-absolute bg-white w-100 top-100 start-0 shadow p-3" : "d-none"} gap-3 align-items-center`}>
         <ul className="d-flex gap-4 list-unstyled p-0 m-0">
           {categories.map((category) => (
             <li key={category.id}>
@@ -66,15 +73,16 @@ export default function Header() {
           ))}
         </ul>
       </div>
-
+      </div>
   
-      <div className="d-flex flex-wrap align-items-center justify-content-end gap-2">
-        <div className="d-flex">
+      <div className="d-flex align-items-center">
+      <div style={{backgroundColor:"#f5f5f6",height:"40px",width:"40px"}} className="p-1 ps-2"><CiSearch /></div>
           <input
             type="text"
+            style={{backgroundColor:"#f5f5f6",height:"40px",width:"40vw",outline:"0"}}
             placeholder="Search for Products, Brands and more... "
-            className="py-1 px-2 border border-black rounded-1"
-            value={search}
+            className="py-1 px-2 border-0"
+            value={search}  
             onChange={(e) => setSearch(e.target.value)}
           />
           <button className="bg-danger text-white border-0 rounded-2 px-2 py-1 mx-1" onClick={handleSearch}>
@@ -82,9 +90,11 @@ export default function Header() {
           </button>
         </div>
 
-        <div className="d-flex align-items-center gap-2">
-          <label className="m-0">Currency:</label>
-          <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+
+
+        <div className="d-flex align-items-center gap-3 ms-auto">
+          <label className="m-0 ">Currency:</label>
+          <select className="form-select" value={currency} onChange={(e) => setCurrency(e.target.value)}>
             {Object.keys(currencyOptions).map((cur) => (
               <option key={cur} value={cur}>
                 {cur} ({currencyOptions[cur].symbol})
@@ -94,27 +104,26 @@ export default function Header() {
 
           <div className="d-flex flex-column text-center">
             <Link className="text-decoration-none text-black" to={user ? "/profile" : "/register"}>
-              <FontAwesomeIcon icon={faPerson} />
-              <div>{user ? "Profile" : "Login"}</div>
+            <SlUser />
+              <div style={{fontSize:"12px",fontWeight:"bolder"}}>{user ? "Profile" : "Login"}</div>
             </Link>
           </div>
 
           <div className="d-flex flex-column text-center">
             <Link className="text-decoration-none text-black" to="/wishlist">
-              <FontAwesomeIcon icon={faHeart} />
-              <div>Wishlist</div>
+            <CiHeart />
+              <div style={{fontSize:"12px",fontWeight:"bolder"}}>Wishlist</div>
             </Link>
           </div>
 
           <div className="d-flex flex-column text-center position-relative">
             <Link className="text-decoration-none text-black" to="/cartpage">
-              <FontAwesomeIcon icon={faBagShopping} />
-              <div>Cart</div>
+            <HiOutlineShoppingBag />
+              <div style={{fontSize:"12px",fontWeight:"bolder"}}>Cart</div>
             </Link>
             {cart.length > 0 && <span className="badge bg-danger position-absolute translate-middle">{cart.length}</span>}
           </div>
         </div>
-      </div>
     </header>
   );
 }

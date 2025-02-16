@@ -6,10 +6,10 @@ import carts from "../Assets/images/cart.png"
 import Footer from '../Compoents/Layout/Footer'
 import { useCart } from '../Compoents/Product/CartContext'
 import CartCard from '../Compoents/Product/CartCard'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
 import CartHead from '../Compoents/Layout/CartHead'
+import { FaBookmark } from "react-icons/fa";
+
 
 
 export default function CartPage() {
@@ -39,7 +39,7 @@ export default function CartPage() {
     {cart.map((item) => (
         <div key={item.id}> <CartCard item={item} /></div>
       ))}
-      <div className='border border-1 border-dark-subtle my-2 mx-2 p-2 w-100 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FontAwesomeIcon icon={faBookmark} /> Add more from Wishlist </Link></div>
+      <div className='border border-1 border-dark-subtle my-2 mx-2 p-2 w-100 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FaBookmark/> Add more from Wishlist </Link></div>
       </div>
       <div className='w-md-50 w-100 mx-3 border border-1 border-dark-subtle position-relative'>
         <div className='m-2'>PRICE DETAILS ({cart.length} items)</div>                                    

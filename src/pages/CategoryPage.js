@@ -7,6 +7,7 @@ import Header from '../Compoents/Layout/Header';
 import Footer from '../Compoents/Layout/Footer';
 import { useSearch } from '../Compoents/Product/SearchContext';
 import Sidebar from '../Compoents/Layout/Sidebar';
+import "./Page.css"
 
 export default function CategoryPage() {
 
@@ -16,11 +17,10 @@ export default function CategoryPage() {
   const { name } = useParams();
 
   const currentPage = parseInt(searchParams.get("page")) || 1;
-  const noOfRow = parseInt(searchParams.get("rows")) || 2;
+  const noOfRow = parseInt(searchParams.get("rows")) || 7;
   const discount = searchParams.get("discount");
-  const pageSize = (noOfRow * 4);
-  const start = (currentPage - 1) * pageSize;
-  const end = start + pageSize;
+  const start = (currentPage - 1) * noOfRow;
+  const end = start + noOfRow;
 
   const category = categories.find((x) => x.name === name);
   const categoryProducts = product.filter((p) => p.category_id === category?.id) || [];
@@ -56,7 +56,7 @@ export default function CategoryPage() {
     (filters.colors.length ? filters.colors.some(color => product.colors.map((p) => p.name).includes(color)) : true) &&
     (filters.brands.length ? filters.brands.includes(product.brand) : true)
   );
-  const noOfPages = Math.ceil(filteredProducts.length / pageSize);
+  const noOfPages = Math.ceil(filteredProducts.length / noOfRow);
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (filters.sortBy === "price-asc") return a.price.discounted - b.price.discounted;
@@ -135,12 +135,12 @@ export default function CategoryPage() {
               ))}
             </div>
             <div className='d-flex justify-content-center p-2'>
-              <button disabled={currentPage === 1} onClick={goToFirstPage} className='text-decoration-none border-0 bg-white'>
-                <FaAngleDoubleLeft /> First
+              <button disabled={currentPage === 1}  onClick={goToFirstPage} className={`text-decoration-none border-0 bg-white fw-bolder ${currentPage===1 ? "text-dark-emphasis" : "text-dark" }`} >
+                <FaAngleDoubleLeft /> Page 1 
               </button>
-              <button disabled={currentPage === 1} onClick={prevPage}><FaAngleLeft /> Previous</button>
-              <div>Page {currentPage} of {noOfPages}</div>
-              <button disabled={currentPage === noOfPages} onClick={nextPage}>Next <FaAngleRight /></button>
+              <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===1 ? "text-dark-emphasis" : "text-dark"} `} onClick={prevPage}><FaAngleLeft /> Previous</button>
+              <div className='text-dark-emphasis mx-5 my-auto'>Page {currentPage} of {noOfPages}</div>
+              <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===noOfPages ? "text-dark-emphasis" : "text-dark"} `} onClick={nextPage}>Next <FaAngleRight /></button>
             </div></>)}
 
         </div>

@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 import { useCurrency } from './CurrencyContext';
+import { FaPlus,FaMinus,FaTimes } from "react-icons/fa";
 
 export default function CartCard({item}) {
      const {currency,currencyOptions}=useCurrency();
@@ -23,14 +22,15 @@ export default function CartCard({item}) {
                 onClick={() => decrementQuantity(item)}
                 className=" border-0 bg-white text-black px-2 py-1 mx-1"
               >
-                -
+                <FaMinus/>
               </button>
               {item.quantity}
               <button
                 onClick={() => incrementQuantity(item)}
                 className="border-0 bg-white text-black px-2 py-1 mx-1"
               >
-                +
+                <FaPlus />
+
               </button>
            
             <div>Color: {item.selectedColor}</div>
@@ -39,7 +39,7 @@ export default function CartCard({item}) {
             <div>{item.return_policy.policy}</div>
             <div>Deliveryin 2 days</div>
        </div>
-       <div className='m-2 ms-auto'><button className='bg-white border-0' onClick={() => removeFromCart(item)}> <FontAwesomeIcon icon={faMultiply} /> </button></div>
+       <div className='m-2 ms-auto'><button className='bg-white border-0' onClick={() => removeFromCart(item)}><FaTimes/>  </button></div>
     </div>
   )
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import "./Footer.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAppStore, faFacebook, faGooglePlay, faInstagram, faTwitter, faWhatsapp, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { FaAppStore,FaFacebook,FaYoutube,FaInstagram,FaGooglePlay, FaTwitter } from "react-icons/fa";
+
+
+
 
 
 const Footer = () => {
@@ -57,16 +59,17 @@ const Footer = () => {
           <h4>EXPERIENCE SHOPSPHERE APP ON MOBILE</h4>
           <div className="footer_apps">
        
-            <FontAwesomeIcon icon={faGooglePlay}/>
-            <FontAwesomeIcon icon={faAppStore}/>
+          <FaGooglePlay />
+          <FaAppStore />
+
             
           </div>
           <h4>KEEP IN TOUCH</h4>
           <div className="footer_socials">
-            <FontAwesomeIcon icon={faFacebook}></FontAwesomeIcon>
-            <FontAwesomeIcon icon={faTwitter}/>
-            <FontAwesomeIcon icon={faYoutube}/>
-            <FontAwesomeIcon icon={faInstagram}/>            
+          <FaFacebook />
+          <FaTwitter/>
+          <FaYoutube/>
+          <FaInstagram/>  
           </div>
         </div>
 

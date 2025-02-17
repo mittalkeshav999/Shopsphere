@@ -55,7 +55,7 @@ export default function ProductImageModal(props) {
               position: "absolute",
               top: "0",
               left: "34vw",
-              width: "54ivw",
+              width: "54vw",
               height: "110vh",
               backgroundImage: `url(${selectedImage})`,
               backgroundSize: "1000px", // Adjust zoom level

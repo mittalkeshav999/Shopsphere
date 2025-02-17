@@ -13,6 +13,7 @@ import { SlHeart } from "react-icons/sl";
 import { IoStar } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
+import ProductImageModal from '../Compoents/Product/ProductImageModal'
 // import Wishlist from './Wishlist'
 
 
@@ -34,13 +35,8 @@ export default function ProductPage() {
     <div>
     <Header/>
     <div className="d-flex flex-md-row flex-column">
-      <div className='w-md-50 w-100 h-100 mx-2 p-2 d-flex flex-wrap'>
-      {
-        output[0].images.map((img)=>(
-          <img  className='w-50 p-2' src={img} alt='img' />) 
-        )
-      }
-     
+      <div style={{ top: "28px"}}className=  'w-md-50 w-100 h-100 mx-2 p-2 d-flex z-1 flex-wrap position-sticky'>
+     <ProductImageModal prod={output[0]}/>
       </div>
       <div className='p-4 w-md-50 w-100'>
         <div className='fs-3'><b>{output[0]?.brand}</b></div>

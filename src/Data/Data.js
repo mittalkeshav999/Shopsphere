@@ -20,7 +20,7 @@ export const categories=[
   {
     "id": "c007",
     "name": "Sportswear",
-    "thumbnail_image": "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    "thumbnail_image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2hvZXN8ZW58MHwxfDB8fHww",
     "discount_range": {
       "min_discount": 10.0,
       "max_discount": 20.0

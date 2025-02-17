@@ -51,7 +51,7 @@ export default function Header() {
   };
 
   return (
-    <header className="d-flex position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-1">
+    <header className="d-flex position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-2">
 
       <div className="d-flex me-auto">
 

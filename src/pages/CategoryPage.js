@@ -132,9 +132,9 @@ export default function CategoryPage() {
 
           <div className='d-flex flex-wrap m-auto justify-content-center'>
             {sortedProducts.slice(start, end).map((product) => (<>
-              {/* <Link key={product.id} to={`/productpage/${product.id}`} className='text-decoration-none text-black'> */}
+
                 <ProductCard data={product} />
-              {/* </Link> */}
+              
               </>
             ))}
           </div>

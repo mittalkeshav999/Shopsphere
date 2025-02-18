@@ -13,8 +13,7 @@ import { SlHeart } from "react-icons/sl";
 import { IoStar } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
-import ProductImageModal from '../Compoents/Product/ProductImageModal'
-// import Wishlist from './Wishlist'
+import ProductImageModal from '../Compoents/Product/ProductImageModal'  
 
 
 
@@ -133,6 +132,6 @@ export default function ProductPage() {
         </div>
       )}
 
-    </div>
+      </div>
   )
 }

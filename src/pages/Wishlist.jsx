@@ -5,12 +5,11 @@ import Header from '../Compoents/Layout/Header'
 import wish from "../Assets/images/wishlist.png"
 import Footer from '../Compoents/Layout/Footer'
 import { useWishlist } from '../Compoents/Product/WishlistContext'
-import { useCart } from '../Compoents/Product/CartContext'
-import ProductCard from '../Compoents/Product/ProductCard'
+import WishlistCard from '../Compoents/Product/WishlistCard'
 
 export default function Wishlist() {
-    const { addToCart } = useCart();
-  const {wishlist,removeFromWishlist}=useWishlist();
+
+  const {wishlist}=useWishlist();
   return (<>
   <Header/>
   {wishlist.length===0 ?  <div className='cart_box' >
@@ -22,12 +21,9 @@ export default function Wishlist() {
       <div className='d-flex flex-wrap m-auto justify-content-center gap-4'>
     {wishlist.map((item) => (
         <div key={item.id}>
-       <Link className='text-decoration-none text-black' to={`/productpage/${item.id}`}> <ProductCard data={item}/></Link><div className='d-flex gap-2 justify-content-center'>
-          <button className='bg-white rounded-2' onClick={() => removeFromWishlist(item.id)}>Remove</button>
-          <button className='bg-white rounded-2' onClick={()=>{
-            addToCart(item);
-            removeFromWishlist(item.id);
-          } }>Add to cart</button></div>
+       <Link className='text-decoration-none text-black' to={`/productpage/${item.id}`}> <WishlistCard data={item}/></Link>
+       <div className='d-flex gap-2 justify-content-center'>
+          </div>
         </div>
       ))}
       </div>

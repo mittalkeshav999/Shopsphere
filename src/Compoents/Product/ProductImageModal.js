@@ -1,11 +1,14 @@
 import React from 'react'
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 
 
 export default function ProductImageModal(props) {
-    const [selectedImage, setSelectedImage] = useState(props.prod.images[0]);
+    const [selectedImage, setSelectedImage] = useState(props.prod?.images?.[0]);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const zoomRef = useRef(null);
+  useEffect(() => {
+    setSelectedImage(props.prod?.images?.[0] || "");
+  }, [props.prod]); 
 
   // Handle Mouse Move for Zoom Effect
   const handleMouseMove = (e) => {

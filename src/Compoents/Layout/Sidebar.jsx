@@ -26,13 +26,14 @@ export default function Sidebar(props) {
     setShowAll(!showAll);
   }
   return (
-    <div style={{ "width": "180px","padding":"20px"}} className='sidebar_box'>
+    <div style={{ "width": "200px","padding":"20px"}} className='sidebar_box'>
     <div className='categories d-flex flex-column'>
-      <h5>BRANDS</h5>
+      <div className='d-flex'><h5 className='fw-semibold'>BRANDS</h5><button className='ms-auto text-danger border-0 bg-white fw-semibold' onClick={props.removeAllFilters}>Clear All</button></div>
       {uniqueBrands.map((brand)=>(
-        <label key={brand}>
+        <label key={brand} style={{cursor:"pointer"}}>
             <input
               type="checkbox"
+              className='mx-2'
               checked={props.filters.brands.includes(brand)}
               onChange={() => props.handleBrandChange(brand)}
             />
@@ -44,16 +45,18 @@ export default function Sidebar(props) {
        <div className='color d-flex flex-column'>
        <h5>COLOR</h5>
        {visibleColors.map((color) => (
-          <label key={color}>
+          <label key={color} style={{cursor:"pointer"}}>
             <input
               type="checkbox"
+              className='mx-2'
               checked={props.filters.colors.includes(color)}
               onChange={() => props.handleColorChange(color)}
             />
             {color}
           </label>
         ))}
-         <button className='border-0 bg-white text-danger ' onClick={handleShow} >{showAll ? "Show Less" :  `+ ${uniqueColors.length-5} More` }</button>
+        {uniqueColors.length>5 ?  <button className='border-0 bg-white text-danger ' onClick={handleShow} >{showAll ? "Show Less" :  `+ ${uniqueColors.length-5} More` }</button>:" " }
+        
        </div>
        <hr/>
        {/* <div className="slider-container mx-4 my-3">
@@ -78,16 +81,16 @@ export default function Sidebar(props) {
 <hr/> */}
        <div className='discount'>
        <h5>DISCOUNT RANGE</h5>
-       <div><input name='discount' value="0"  type='radio' checked={props.filters.discount === "0"}  onChange={props.handleDiscountChange}/> No Discount </div>
-       <div><input name='discount' value="10" type='radio' checked={props.filters.discount === "10"} onChange={props.handleDiscountChange}/> 10% and above </div>
-       <div><input name='discount' value="20" type='radio' checked={props.filters.discount === "20"} onChange={props.handleDiscountChange}/> 20% and above </div>
-       <div><input name='discount' value="30" type='radio' checked={props.filters.discount === "30"} onChange={props.handleDiscountChange}/> 30% and above </div>
-       <div><input name='discount' value="40" type='radio' checked={props.filters.discount === "40"} onChange={props.handleDiscountChange}/> 40% and above </div>
-       <div><input name='discount' value="50" type='radio' checked={props.filters.discount === "50"} onChange={props.handleDiscountChange}/> 50% and above </div>
-       <div><input name='discount' value="60" type='radio' checked={props.filters.discount === "60"} onChange={props.handleDiscountChange}/> 60% and above </div>
-       <div><input name='discount' value="70" type='radio' checked={props.filters.discount === "70"} onChange={props.handleDiscountChange}/> 70% and above </div>
-       <div><input name='discount' value="80" type='radio' checked={props.filters.discount === "80"} onChange={props.handleDiscountChange}/> 80% and above </div>
-       <div><input name='discount' value="90" type='radio' checked={props.filters.discount === "90"} onChange={props.handleDiscountChange}/> 90% and above </div>
+       <div><input name='discount' value="0"  type='radio' className='mx-2' checked={props.filters.discount === "0"}  onChange={props.handleDiscountChange}/> No Discount </div>
+       <div><input name='discount' value="10" type='radio' className='mx-2' checked={props.filters.discount === "10"} onChange={props.handleDiscountChange}/> 10% and above </div>
+       <div><input name='discount' value="20" type='radio' className='mx-2' checked={props.filters.discount === "20"} onChange={props.handleDiscountChange}/> 20% and above </div>
+       <div><input name='discount' value="30" type='radio' className='mx-2' checked={props.filters.discount === "30"} onChange={props.handleDiscountChange}/> 30% and above </div>
+       <div><input name='discount' value="40" type='radio' className='mx-2' checked={props.filters.discount === "40"} onChange={props.handleDiscountChange}/> 40% and above </div>
+       <div><input name='discount' value="50" type='radio' className='mx-2' checked={props.filters.discount === "50"} onChange={props.handleDiscountChange}/> 50% and above </div>
+       <div><input name='discount' value="60" type='radio' className='mx-2' checked={props.filters.discount === "60"} onChange={props.handleDiscountChange}/> 60% and above </div>
+       <div><input name='discount' value="70" type='radio' className='mx-2' checked={props.filters.discount === "70"} onChange={props.handleDiscountChange}/> 70% and above </div>
+       <div><input name='discount' value="80" type='radio' className='mx-2' checked={props.filters.discount === "80"} onChange={props.handleDiscountChange}/> 80% and above </div>
+       <div><input name='discount' value="90" type='radio' className='mx-2' checked={props.filters.discount === "90"} onChange={props.handleDiscountChange}/> 90% and above </div>
        </div>
     </div>
   )

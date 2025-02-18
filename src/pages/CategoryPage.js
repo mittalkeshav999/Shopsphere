@@ -98,19 +98,29 @@ export default function CategoryPage() {
   const prevPage = () => updatePagination(currentPage - 1, noOfRow);
   const nextPage = () => updatePagination(currentPage + 1, noOfRow);
 
+  const removeAllFilters=()=>{
+    setFilters({
+      colors: [],
+      brands: [],
+      sortBy: "",
+      priceRange: "0-Infinity",
+      discount: "",
+    });
+  }
+
   return (
     <>
       <Header />
       <div className='d-flex'>
         <div className='d-none d-md-block'>
-          <Sidebar categoryProducts={categoryProducts} filters={filters} handleColorChange={handleColorChange} handleBrandChange={handleBrandChange} handleDiscountChange={handleDiscountChange} handlePriceChange={handlePriceChange} priceRange={[minPrice,maxPrice]} />
+          <Sidebar categoryProducts={categoryProducts} filters={filters} handleColorChange={handleColorChange} handleBrandChange={handleBrandChange} handleDiscountChange={handleDiscountChange} handlePriceChange={handlePriceChange} priceRange={[minPrice,maxPrice]} removeAllFilters={removeAllFilters} />
         </div>
         <div className='mx-auto'>
           <div className="text-center fw-bold">You are viewing: {name}</div>
           <div className="filters d-flex justify-content-end mx-4">
             <div className='mx-2 my-auto'>Sort by: </div>
             <select className='form-select' style={{width:"200px"}} value={filters.sortBy} onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}>
-              <option value="">None</option>
+              <option value="">Recommended</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
               <option value="stock-asc">Stock: Low to High</option>
@@ -120,20 +130,16 @@ export default function CategoryPage() {
             </select>
           </div>
 
-          {(noOfRow <= 0) ? (<div className='d-flex flex-wrap m-auto justify-content-center'>
-            {sortedProducts.slice(start, end).map((product) => (
-              <Link key={product.id} to={`/productpage/${product.id}`} className='text-decoration-none text-black'>
+          <div className='d-flex flex-wrap m-auto justify-content-center'>
+            {sortedProducts.slice(start, end).map((product) => (<>
+              {/* <Link key={product.id} to={`/productpage/${product.id}`} className='text-decoration-none text-black'> */}
                 <ProductCard data={product} />
-              </Link>
+              {/* </Link> */}
+              </>
             ))}
-          </div>) : (<>
-            <div className='d-flex flex-wrap m-auto justify-content-center'>
-              {sortedProducts.slice(start, end).map((product) => (
-                <Link key={product.id} to={`/productpage/${product.id}`} className='text-decoration-none text-black'>
-                  <ProductCard data={product} />
-                </Link>
-              ))}
-            </div>
+          </div>
+
+          {!(noOfRow <= 0) && 
             <div className='d-flex justify-content-center p-2'>
               <button disabled={currentPage === 1}  onClick={goToFirstPage} className={`text-decoration-none border-0 bg-white fw-bolder ${currentPage===1 ? "text-dark-emphasis" : "text-dark" }`} >
                 <FaAngleDoubleLeft /> Page 1 
@@ -141,7 +147,7 @@ export default function CategoryPage() {
               <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===1 ? "text-dark-emphasis" : "text-dark"} `} onClick={prevPage}><FaAngleLeft /> Previous</button>
               <div className='text-dark-emphasis mx-5 my-auto'>Page {currentPage} of {noOfPages}</div>
               <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===noOfPages ? "text-dark-emphasis" : "text-dark"} `} onClick={nextPage}>Next <FaAngleRight /></button>
-            </div></>)}
+            </div>}
 
         </div>
       </div>

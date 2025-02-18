@@ -15,6 +15,7 @@ import { CurrencyProvider } from './Compoents/Product/CurrencyContext';
 import Profile from './pages/Profile';
 import AuthProvider from './Compoents/Product/AuthContext';
 import CheckoutPage from './pages/CheckoutPage';
+import ContactUs from './pages/ContactUs';
 
  
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <Route path='/cartpage' element={<CartPage/>}/>
       <Route path='/categorypage/:name' element={<CategoryPage/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/contactus' element={<ContactUs/>}/>
       <Route path='/checkout' element={<CheckoutPage/>}/>
       </Routes>
     </CurrencyProvider>

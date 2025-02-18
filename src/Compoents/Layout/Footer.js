@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import { FaAppStore,FaFacebook,FaYoutube,FaInstagram,FaGooglePlay, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 
@@ -28,7 +29,7 @@ const Footer = () => {
         <div className="footer__section">
           <h4>CUSTOMER POLICIES</h4>
           <ul>
-            <li>Contact Us</li>
+            <li><Link className="text-decoration-none text-dark-emphasis" to="/contactus">Contact Us</Link></li>
             <li>FAQ</li>
             <li>T&C</li>
             <li>Terms Of Use</li>

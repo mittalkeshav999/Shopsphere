@@ -30,10 +30,10 @@ export default function Corousel() {
     <div className="carousel-container text-center">
     <div className='d-flex'>
       <FaArrowLeft className='m-auto' onClick={Left} />
-      <img className='w' style={{"width":"92%"}} src={images[index]} alt='carousel'/>
+      <div></div><img className='w' style={{"width":"92%"}} src={images[index]} alt='carousel'/>
       <FaArrowRight className='m-auto' onClick={Right} />
     </div>
-    <div className="d-flex justify-content-center mt-3">
+    <div style={{overflow:"hidden"}} className="d-flex justify-content-center mt-3">
         {images.map((_, i) => (
           <div
             key={i}

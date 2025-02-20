@@ -1,25 +1,23 @@
 import { createContext, useState, useContext} from "react";
+import { toast} from 'react-toastify';
+
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [cartPopup, setCartPopup] = useState(false);  
 
   const addToCart = (product,selectedColor,selectedSize) => {
     if(product.colors.length>0 &&  !selectedColor){
-      alert("Please Select Color")
+      toast.error("Please Select Color")
       return;
     }
     if(product.colors.length>0 && !selectedSize){
-      alert("Please Select Size")
+      toast.error("Please Select Size")
       return;
     }
     setCart((prevCart) => {
-      setCartPopup(true); // Show popup when an item is updated
-      setTimeout(() => {
-        setCartPopup(false); // Hide popup after a few seconds
-      }, 2000);
+      toast.success(`${product.name} added to Bag`)
       const existingItem = prevCart.find((item) => item.id === product.id && item.selectedColor===selectedColor && item.selectedSize===selectedSize);
       if (existingItem) {
         if(existingItem.quantity<product.availability.stock_quantity){
@@ -28,7 +26,7 @@ export const CartProvider = ({ children }) => {
         );
       }
         else{
-          alert(`Stock limit reached for ${product.name}`)
+          toast.warning(`Stock limit reached for ${product.name}`)
         }
 
       } 
@@ -61,7 +59,7 @@ export const CartProvider = ({ children }) => {
     );
   };
   return (  
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart,incrementQuantity,decrementQuantity,cartPopup}}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart,incrementQuantity,decrementQuantity}}>
       {children}
     </CartContext.Provider>
   );

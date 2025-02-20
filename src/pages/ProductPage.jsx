@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import ProductCard from '../Compoents/Product/ProductCard'
 import { GoStarFill } from "react-icons/go";
 import { HiShoppingBag } from "react-icons/hi";
-import { SlHeart } from "react-icons/sl";
+import { FaHeart } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
@@ -22,17 +22,29 @@ export default function ProductPage() {
   const [selectedColor,setSelectedColor]=useState(null);
   const [selectedSize,setSelectedSize]=useState(null);
   const {currency,currencyOptions }=useCurrency();
-  const {addToCart,cartPopup } = useCart();
-  const {addToWishlist,wishPopup}=useWishlist();
+  const {addToCart } = useCart();
+  const {addToWishlist,wishlist}=useWishlist();
   const { id }=useParams();
   const output = products.filter((x) => x.id===id)
   const reviewColor=["Green","Green","Orange","Yellow","Red"];
+  const isPresent= wishlist.some(prod => prod.id===output[0].id)
+  const[isHovered,setIsHovered]=useState(false);
 
+  
+  if (output.length === 0) {
+    return(<>
+    <Header/>
+     <div>Product not found</div>
+     <Footer/>
+     </>
+  )
+}
 
 
   return (
     <div>
     <Header/>
+
     <div className="d-flex flex-md-row flex-column">
       <div style={{ top: "28px"}}className=  'w-md-50 w-100 h-100 mx-2 p-2 d-flex z-1 flex-wrap position-sticky'>
      <ProductImageModal prod={output[0]}/>
@@ -48,16 +60,18 @@ export default function ProductPage() {
           <div>{output[0].colors.map((color,index)=>(<button key={index} onClick={()=> setSelectedColor(color.name)} style={{"background":`${color["hex"]}`,hover:"color.name"}}  className={`p-3 me-2 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" :<></>}`}></button>))}</div>
         </>}
         {output[0].sizes.length>0 && <><div className='d-flex'><div className='fs-5 fw-bold'> SELECT SIZE  </div> <div className='mx-4 m-1'> <Link className='text-decoration-underlinetion-' to='/'>SIZE CHART </Link></div></div>
-        <div>{output[0].sizes.map((size)=>(<button disabled={size["available"]===false} onClick={()=> setSelectedSize(size.size)} style={{height:"50px",width:"auto",minWidth:"50px"}} className={`me-2 rounded-5 
-         ${selectedSize === size.size ? "text-white bg-danger" : " bg-white"}`}>{size["size"]}</button>))}</div> </>}
+        <div>{output[0].sizes.map((size)=>(<button key={size.size} disabled={size["available"]===false} 
+        onMouseEnter={()=>setIsHovered(true)} onMouseLeave={()=>setIsHovered(false)} 
+        onClick={()=> setSelectedSize(size.size)} style={{height:"50px",width:"auto",minWidth:"50px"}} className={`me-2 rounded-5 
+         ${selectedSize === size.size ? "text-danger border-danger" : " "} ${isHovered?"border-danger":""} bg-white`}>{size["size"]}</button>))}</div> </>}
      
         <div className="action-buttons">
         <button onClick={()=>{
           addToCart(output[0],selectedColor,selectedSize);
-        }} className="w-50 m-3 p-2 text-white bg-danger rounded-2"><HiShoppingBag /> ADD TO BAG</button>
+        }} className="w-50 m-3 p-2 btn btn-danger"><HiShoppingBag /> ADD TO BAG</button>
         <button onClick={()=>{
           addToWishlist(output[0])
-        }} className="w-25 m-3 p-2 text-balck rounded-2"> <SlHeart /> WISHLIST</button>
+        }} className={`w-25 m-3 p-2  btn btn-light ${isPresent? " text-white bg-secondary " : ""}`}> <FaHeart className={` ${isPresent? "text-danger" :"text-secondary"}`} /> {`${isPresent? "WISHLISTED":" WISHLIST"}`}</button>
       </div>
       <hr/>
       <div>
@@ -113,24 +127,10 @@ export default function ProductPage() {
       </div>
       <div className="fw-bolder mx-4 my-2">SIMILAR PRODUCTS</div>
       <div className='d-flex flex-wrap justify-content-center'>
-      {products.filter((product)=> ((product.category_id === output[0].category_id)&& product.id!==output[0].id)).slice(0,7).map((product)=>{
+      { output.length>0 && products.filter((product)=> ((product.category_id === output[0].category_id)&& product.id!==output[0].id)).slice(0,7).map((product)=>{
         return <Link className='text-decoration-none text-black' to={"/productpage/"+ product.id} ><ProductCard  key={product.id} data={product} /></Link>
       })}</div>
-      <Footer/>
-      {cartPopup && (
-        <div className="modal fade show custom-popup" style={{ display: "block", paddingRight: "170px" }} role="dialog">
-          <div className="modal-dialog modal-content text-center">
-          <p> {output[0].name} updated in bag</p>
-          </div>
-        </div>
-      )}
-      {wishPopup && (
-        <div className="modal fade show custom-popup" style={{ display: "block", paddingRight: "170px" }} role="dialog">
-          <div className="modal-dialog modal-content text-center">
-          <p> {output[0].name} updated in Wishlist</p>
-          </div>
-        </div>
-      )}
+      <Footer/>   
 
       </div>
   )

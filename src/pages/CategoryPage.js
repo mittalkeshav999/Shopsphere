@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useParams, useNavigate, useSearchParams} from 'react-router-dom';
+import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaTimes } from "react-icons/fa";
 import { categories } from '../Data/Data';
 import ProductCard from '../Compoents/Product/ProductCard';
 import Header from '../Compoents/Layout/Header';
@@ -108,6 +108,7 @@ export default function CategoryPage() {
     });
   }
 
+
   return (
     <>
       <Header />
@@ -117,6 +118,22 @@ export default function CategoryPage() {
         </div>
         <div className='mx-auto'>
           <div className="text-center fw-bold">You are viewing: {name}</div>
+          <div className='d-flex my-2'>
+          <div className='ms-5'>{filters.brands.map((brand)=>
+          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{brand } <FaTimes onClick={()=>handleBrandChange(brand)} /></span>
+          )}</div>
+          <div className='ms-5'>{filters.colors.map((color)=>
+          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{color } <FaTimes onClick={()=>handleColorChange(color)} /></span>
+          )}</div>
+          <div className='ms-5'>
+          {/* <span className='border mx-1 rounded-5 px-2 py-1 align-items-center'>{filters.discount}  <FaTimes onClick={setFilters(() => {filters.discount: e.target.value })} /></span> */}
+          <span style={{fontSize:"0.8rem"}} className="border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
+  {filters.discount}% And Above  
+  <FaTimes onClick={() =>setFilters(prev => ({ ...prev, discount: '' }))} />
+</span>
+          
+          </div>
+       </div>
           <div className="filters d-flex justify-content-end mx-4">
             <div className='mx-2 my-auto'>Sort by: </div>
             <select className='form-select' style={{width:"200px"}} value={filters.sortBy} onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}>
@@ -141,12 +158,12 @@ export default function CategoryPage() {
 
           {!(noOfRow <= 0) && 
             <div className='d-flex justify-content-center p-2'>
-              <button disabled={currentPage === 1}  onClick={goToFirstPage} className={`text-decoration-none border-0 bg-white fw-bolder ${currentPage===1 ? "text-dark-emphasis" : "text-dark" }`} >
+              <button disabled={currentPage === 1}  onClick={goToFirstPage} className={`border-0 bg-white fw-bolder ${currentPage===1 ? "text-dark-emphasis" : "text-dark" }`} >
                 <FaAngleDoubleLeft /> Page 1 
               </button>
-              <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===1 ? "text-dark-emphasis" : "text-dark"} `} onClick={prevPage}><FaAngleLeft /> Previous</button>
+              <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===1 ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={prevPage}><FaAngleLeft /> Previous</button>
               <div className='text-dark-emphasis mx-5 my-auto'>Page {currentPage} of {noOfPages}</div>
-              <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder border-dark-subtle ${currentPage===noOfPages ? "text-dark-emphasis" : "text-dark"} `} onClick={nextPage}>Next <FaAngleRight /></button>
+              <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===noOfPages ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={nextPage}>Next <FaAngleRight /></button>
             </div>}
 
         </div>

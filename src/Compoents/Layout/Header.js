@@ -85,7 +85,7 @@ export default function Header() {
             value={search}  
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="bg-danger text-white border-0 rounded-2 px-2 py-1 mx-1" onClick={handleSearch}>
+          <button className=" btn btn-danger px-2 py-1 mx-1" onClick={handleSearch}>
             Search
           </button>
         </div>

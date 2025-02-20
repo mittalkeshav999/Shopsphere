@@ -10,6 +10,7 @@ import WishlistCard from '../Compoents/Product/WishlistCard'
 export default function Wishlist() {
 
   const {wishlist}=useWishlist();
+
   return (<>
   <Header/>
   {wishlist.length===0 ?  <div className='cart_box' >
@@ -21,13 +22,22 @@ export default function Wishlist() {
       <div className='d-flex flex-wrap m-auto justify-content-center gap-4'>
     {wishlist.map((item) => (
         <div key={item.id}>
-       <Link className='text-decoration-none text-black' to={`/productpage/${item.id}`}> <WishlistCard data={item}/></Link>
+       {/* <Link className='text-decoration-none text-black' to={`/productpage/${item.id}`}>  */}
+       <WishlistCard data={item} />
+       {/* </Link> */}
        <div className='d-flex gap-2 justify-content-center'>
           </div>
         </div>
+        
       ))}
       </div>
+      
     <Footer/>
+
+
+   
+
+
     </>
   )
 }

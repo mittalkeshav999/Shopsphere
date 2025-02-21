@@ -13,6 +13,7 @@ export default function Wishlist() {
 
   return (<>
   <Header/>
+  <div className='fs-4 mx-5'><b>My Wishlist</b> {wishlist.length} items</div>
   {wishlist.length===0 ?  <div className='cart_box' >
       <h5>YOUR WISHLIST IS EMPTY</h5>
       <p>Add items that you like to your wishlist. Review them anytime and easily move them to bag.</p>

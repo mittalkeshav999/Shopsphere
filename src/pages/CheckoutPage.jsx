@@ -13,15 +13,14 @@ export default function CheckoutPage() {
     const totalDiscount = Number((cart.reduce((sum, item) => sum + item.price.original * item.quantity, 0) * currencyOptions[currency].rate).toFixed(2));
     const MRP = Number((totalPrice + totalDiscount).toFixed(2));
         
-    if(!user) return <div className='text-center'>Please <Link to="/register"> Log </Link>in First</div>
+    if(!user) return <div className='text-center'>Please <Link to="/register"> Log in </Link> First</div>
   return (
     <div>
     <CartHead/>
-      <div className='w-100 d-flex flex-column flex-md-row'>
-      <div className='w-md-50 w-100'>
-        <span></span>
-        <span></span>
-        SELECT ADDRESS
+      <div className=' d-flex flex-column flex-md-row'>
+      <div className='col-md-6 col-12'>
+        <span className='mx-3'>SELECT ADDRESS</span>
+        
        {user.Addresses?.map((address)=>(
         <div className='border border-black m-3 p-3 shadow d-flex flex-row'>
         <input name='address' type='radio' />
@@ -31,7 +30,7 @@ export default function CheckoutPage() {
         </div></div> )
        )}
        </div>
-       <div className='w-md-50 w-100  border border-1 my-2 mx-2 border-dark-subtle'>
+       <div className='col-md-6 col-12 border border-1 border-dark-subtle'>
         <div className='m-2 fw-bolder text-dark-emphasis'>PRICE DETAILS ({cart.length} items)</div>                                    
         <div className='d-flex justify-content-between m-2'><div>Total MRP</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
         <div className='d-flex justify-content-between m-2'><div>Discount on MRP</div><div className='text-success'>-{currencyOptions[currency].symbol}{totalDiscount}</div></div>

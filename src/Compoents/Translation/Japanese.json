@@ -1,7 +1,14 @@
 {
-    "SHOP": "ショップ",
-    "BY": "によって",
-    "CATEGORY": "カテゴリ",
-    "Mobiles": "モバイル"
-  }
-  
+  "SHOP": "店",
+  "BY": "によって",
+  "CATEGORY": "カテゴリー",
+  "Mobiles": "携帯電話",
+  "Clothing": "衣類",
+  "Electronics": "電子機器",
+  "Home Appliances": "家庭用電化製品",
+  "Now": "今",
+  "OFF": "オフ",
+  "Shop": "ショップ",
+  "Sportswear": "スポーツウェア",
+  "img": "画像"
+}

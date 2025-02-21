@@ -1,7 +1,14 @@
 {
-    "SHOP": "Shop",
-    "BY": "by",
-    "CATEGORY": "Category",
-    "Mobiles": "Mobiles"
-  }
-  
+  "SHOP": "SHOP",
+  "BY": "BY",
+  "CATEGORY": "CATEGORY",
+  "Mobiles": "Mobiles",
+  "Clothing": "Clothing",
+  "Electronics": "Electronics",
+  "Home Appliances": "Home Appliances",
+  "Now": "Now",
+  "OFF": "OFF",
+  "Shop": "Shop",
+  "Sportswear": "Sportswear",
+  "img": "Image"
+}

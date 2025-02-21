@@ -174,7 +174,7 @@ export default function ProductPage() {
       <div className="fw-bolder mx-4 my-2">SIMILAR PRODUCTS</div>
       <div className='d-flex flex-wrap justify-content-center'>
         {output.length > 0 && products.filter((product) => ((product.category_id === output[0].category_id) && product.id !== output[0].id)).slice(0, 7).map((product) => {
-          return <Link className='text-decoration-none text-black' to={"/productpage/" + product.id} ><ProductCard key={product.id} data={product} /></Link>
+          return <ProductCard key={product.id} data={product} />
         })}</div>
       <Footer />
 

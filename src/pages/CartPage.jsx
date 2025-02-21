@@ -35,14 +35,14 @@ export default function CartPage() {
     </div> : 
 <>
 <CartHead/>
-    <div className='d-flex flex-column flex-md-row m-2 p-2 justify-content-around'>
-    <div className='w-50 mx-2'>
+    <div className='d-flex flex-column flex-md-row row  m-2 p-2 justify-content-around'>
+    <div className='col-md-6 col-12'>
     {cart.map((item) => (
         <div key={item.id}> <CartCard item={item} /></div>
       ))}
-      <div className='border border-1 border-dark-subtle my-2 mx-2 p-2 w-100 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FaBookmark/> Add more from Wishlist </Link></div>
+      <div className='col-12 border border-1 border-dark-subtle m-2 p-2 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FaBookmark/> Add more from Wishlist </Link></div>
       </div>
-      <div className='w-25 mx-3 border border-1 border-dark-subtle position-relative'>
+      <div className='col-md-4 col-12 m-2 p-2 border border-1 border-dark-subtle position-relative'>
         <div className='m-2'>PRICE DETAILS ({cart.length} items)</div>                                    
         <div className='d-flex justify-content-between m-2'><div>Total MRP</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
         <div className='d-flex justify-content-between m-2'><div>discount on MRP</div><div>{currencyOptions[currency].symbol}{totalDiscount}</div></div>

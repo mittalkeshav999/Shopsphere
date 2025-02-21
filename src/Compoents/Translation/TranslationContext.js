@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext, useMemo } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import en from "./English.json";
 import hi from "./Hindi.json";
 import jp from "./Japanese.json";
@@ -10,52 +10,44 @@ const languages = [
   { isoCode: "jp", name: "日本語" }
 ];
 
-// Load translations dynamically
+// Store translations
 const translations = { en, hi, jp };
 
-// Create context
+// Create Context
 const TranslationContext = createContext();
 
+// Provider Component
 export function TranslationProvider({ children }) {
   const [language, setLanguage] = useState("en"); // Default language
-
-  // ✅ Compute `currentTranslations` dynamically instead of setting state
-  const currentTranslations = useMemo(() => translations[language] || {}, [language]);
+  const [currentTranslations, setCurrentTranslations] = useState(translations[language]);
+  const missingTranslations = {};
 
   useEffect(() => {
-    logMissingTranslations();
-  }, [language]); // ✅ Only trigger missing translation check on language change
+    setCurrentTranslations(translations[language]);
+  }, [language]);
 
-  const changeLanguage = (lang) => setLanguage(lang);
-
-  // ✅ Use a function that safely handles missing keys
-  const t = (key) => currentTranslations[key] || key; // Fallback to key if not found
-
-  const isTranslated = (key) => currentTranslations[key] !== undefined; // ✅ Check actual value, not just key presence
-
-  // ✅ Count missing translations based on English as the reference
-  const countMissingTranslations = () => {
-    const referenceKeys = Object.keys(translations["en"]); // Use English as a base
-    const currentLangTranslations = translations[language] || {}; // ✅ Get latest language translations
-    const missingKeys = referenceKeys.filter((key) => currentLangTranslations[key] === undefined);
-    
-    console.log(`🚨 Missing words in ${language}:`, missingKeys); // ✅ Log missing words
-    return missingKeys.length;
+  // Function to change language
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
   };
 
-  // ✅ Log missing translations count whenever language changes
-  const logMissingTranslations = () => {
-    console.log(`🚨 Missing translations in ${language}: ${countMissingTranslations()}`);
+  // Function to translate keys
+  const t = (key) => {
+    if (!currentTranslations[key]) {
+      missingTranslations[key] = key;
+      console.warn("Missing translations:", missingTranslations);
+    }
+    return currentTranslations[key] || key; // If key is missing, return the original text
   };
 
   return (
-    <TranslationContext.Provider value={{ language, changeLanguage, t, isTranslated, countMissingTranslations, languages }}>
+    <TranslationContext.Provider value={{ language, changeLanguage, t, languages }}>
       {children}
     </TranslationContext.Provider>
   );
 }
 
-// Custom hook for translation usage
+// Custom Hook
 export function useTranslation() {
   return useContext(TranslationContext);
 }

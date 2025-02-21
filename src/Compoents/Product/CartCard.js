@@ -16,7 +16,6 @@ export default function CartCard({item}) {
        
             <div className='fw-bolder'>{item.brand}</div>
             <div>{item.name}</div>
-            <div className='text-secondary'>Sold by : ABC </div>
             Quantity: 
             <button
                 onClick={() => decrementQuantity(item)}
@@ -35,7 +34,7 @@ export default function CartCard({item}) {
            
             <div>Color: {item.selectedColor}</div>
             <div>Size: {item.selectedSize}</div>
-            <div className='d-flex flex-row p-1'> <div>{currencyOptions[currency].symbol}{Number((item.price.discounted * currencyOptions[currency].rate * item.quantity).toFixed(2))} </div><div className='text-decoration-line-through text-secondary ps-2' >{currencyOptions[currency].symbol}{Number((item.price.original * currencyOptions[currency].rate * item.quantity).toFixed(2)) }</div> <div className='text-danger-emphasis ps-2'> {currencyOptions[currency].symbol} {Number((item.price.original-item.price.discounted) * currencyOptions[currency].rate * item.quantity)} OFF </div> </div>
+            <div style={{fontSize:"0.86rem"}} className='d-flex flex-row p-1'> <div>{currencyOptions[currency].symbol}{Number((item.price.discounted * currencyOptions[currency].rate * item.quantity).toFixed(2))} </div><div className='text-decoration-line-through text-secondary ps-2' >{currencyOptions[currency].symbol}{Number((item.price.original * currencyOptions[currency].rate * item.quantity).toFixed(2)) }</div> <div className='text-danger-emphasis ps-2 d-sm-block d-none'> {currencyOptions[currency].symbol} {Number((item.price.original-item.price.discounted) * currencyOptions[currency].rate * item.quantity)} OFF </div> </div>
             <div>{item.return_policy.policy}</div>
             <div>Deliveryin 2 days</div>
        </div>

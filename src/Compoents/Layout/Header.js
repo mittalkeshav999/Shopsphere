@@ -52,7 +52,7 @@ export default function Header() {
   };
 
   return (
-    <header className="d-flex position-sticky bg-white align-items-center row px-3 py-2 shadow top-0 z-2">
+    <header className="d-flex position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-2">
       
       <div className="d-flex me-auto col-5 col-sm-2 order-1">
 

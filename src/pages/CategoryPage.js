@@ -127,11 +127,12 @@ export default function CategoryPage() {
           )}</div>
           <div className='ms-5'>
           {/* <span className='border mx-1 rounded-5 px-2 py-1 align-items-center'>{filters.discount}  <FaTimes onClick={setFilters(() => {filters.discount: e.target.value })} /></span> */}
-          <span style={{fontSize:"0.8rem"}} className="border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
-  {filters.discount}% And Above  
-  <FaTimes onClick={() =>setFilters(prev => ({ ...prev, discount: '' }))} />
-</span>
-          
+          {filters.discount && filters.discount > 0 && (
+  <span style={{ fontSize: "0.8rem" }} className="border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
+    {filters.discount}% And Above  
+    <FaTimes onClick={() => setFilters(prev => ({ ...prev, discount: '' }))} />
+  </span>
+)}          
           </div>
        </div>
           <div className="filters d-flex justify-content-end mx-4">

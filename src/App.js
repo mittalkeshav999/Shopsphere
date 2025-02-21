@@ -16,6 +16,8 @@ import Profile from './pages/Profile';
 import AuthProvider from './Compoents/Product/AuthContext';
 import CheckoutPage from './pages/CheckoutPage';
 import ContactUs from './pages/ContactUs';
+import { TranslationProvider } from './Compoents/Translation/TranslationContext';
+
 
 
  
@@ -29,6 +31,7 @@ function App() {
     <CartProvider>
     <WishlistProvider>
     <CurrencyProvider>
+    <TranslationProvider>
       <Routes>
       <Route  path='/'  element={<HomePage/>}  />
       <Route path='/register' element={<Register/>} />
@@ -41,6 +44,7 @@ function App() {
       <Route path='/contactus' element={<ContactUs/>}/>
       <Route path='/checkout' element={<CheckoutPage/>}/>
       </Routes>
+      </TranslationProvider>
     </CurrencyProvider>
     </WishlistProvider>
     </CartProvider>

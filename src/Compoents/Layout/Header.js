@@ -61,8 +61,8 @@ export default function Header() {
           {menuOpen ? <LiaTimesSolid /> : <HiMiniBars3 />}
         </button>
 
-        <div className={`${menuOpen ? "d-flex flex-column position-absolute bg-white w-100 top-100 start-0 shadow p-3" : "d-none"} gap-3 align-items-center`}>
-          <ul className="d-flex gap-3 list-unstyled p-0 m-0"> 
+        <div className={`${menuOpen ? "d-flex flex-column position-absolute bg-white w-100 top-100 start-0 shadow p-3" : "d-none"} align-items-center`}>
+          <ul className="d-flex gap-1 gap-md-5 gap-sm-3 list-unstyled p-0 m-0"> 
             {categories.map((category) => (
               <li key={category.id}>
                 <Link style={{fontSize:"0.9rem"}} className="fw-bolder text-black text-decoration-none" to={`/categorypage/${category.name}`} onClick={() => setMenuOpen(false)}>
@@ -73,8 +73,7 @@ export default function Header() {
           </ul>
         </div>
       </div>
-
-      {/* Search Bar */}
+      
       <div className="d-flex align-items-center text-center col-12 col-sm-5 order-3 order-sm-2">
         <div style={{ backgroundColor: "#f5f5f6", height: "40px", width: "40px" }} className="p-1 ps-2">
           <CiSearch />
@@ -83,7 +82,7 @@ export default function Header() {
           type="text"
           style={{ backgroundColor: "#f5f5f6", height: "40px", outline: "0" }}
           placeholder={`${t("Search")} ${t("for")} ${t("Products")} , ${t("Brands")} ${t("and")} ${t("more")}...`}
-          className="py-1 px-2 border-0 col-sm-9 col-8"
+          className="py-1 px-2 border-0 col-sm-10 col-8 "
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -91,9 +90,8 @@ export default function Header() {
           {t("Search")}
         </button>
       </div>
-
-      {/* User Actions */}
-      <div className="d-flex align-items-center gap-3 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">
+     
+      <div className="d-flex align-items-center gap-2 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">
         <div className="m-0 d-none d-lg-block"> <LanguageSelector /></div>
         <label className="m-0 d-none d-lg-block">{t("Currency")}:</label>
         <select className="form-select d-none d-lg-block" value={currency} onChange={(e) => setCurrency(e.target.value)}>

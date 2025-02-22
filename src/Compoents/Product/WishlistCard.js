@@ -14,6 +14,8 @@ export default function WishlistCard(props) {
       const {addToCart}=useCart();
       const {currency,currencyOptions}=useCurrency();
       const {removeFromWishlist}= useWishlist();
+      const [isHovered, setIsHovered] = useState(false);
+      
   
 
   return (<>
@@ -50,8 +52,15 @@ export default function WishlistCard(props) {
                     <div>{props.data.colors.map((color,index)=>(<button key={index} onClick={()=> setSelectedColor(color.name)} style={{"background":`${color["hex"]}`,hover:"color.name"}}  className={`p-3 me-2 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" :<></>}`}></button>))}</div>
                   </>}
                   {props.data.sizes.length>0 && <><div className='fs-5 m-auto fw-bold'> {t("SELECT")} {t("SIZE")}  </div>
-                  <div>{props.data.sizes.map((size)=>(<button disabled={size["available"]===false} onClick={()=> setSelectedSize(size.size)} style={{height:"50px",width:"auto",minWidth:"50px"}} className={`me-2 rounded-5 
-                   ${selectedSize === size.size ? "text-white bg-danger" : " bg-white"}`}>{t(size["size"])}</button>))}</div> </>} 
+                  <div>{props.data.sizes.map((size)=>(<button  key={size.size}
+          disabled={size["available"] === false}
+          onMouseEnter={() => setIsHovered(size.size)} // Track hovered size
+          onMouseLeave={() => setIsHovered(null)} // Reset when not hovered
+          onClick={() => setSelectedSize(size.size)}
+          style={{ height: "50px", width: "auto", minWidth: "50px" }}
+          className={`me-2 rounded-5 
+            ${selectedSize === size.size ? "text-danger border-danger" : ""}
+            ${isHovered === size.size ? "border-danger" : ""} bg-white`}>{t(size["size"])}</button>))}</div> </>} 
           </div>
         </div>
         <div className="modal-footer">

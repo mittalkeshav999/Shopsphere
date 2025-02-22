@@ -1,90 +1,94 @@
 import React from "react";
 import "./Footer.css";
-import { FaAppStore,FaFacebook,FaYoutube,FaInstagram,FaGooglePlay, FaTwitter } from "react-icons/fa";
+import { FaAppStore, FaFacebook, FaYoutube, FaInstagram, FaGooglePlay, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-
-
-
+import { useTranslation } from "../Translation/TranslationContext";
 
 const Footer = () => {
+  const { t } = useTranslation(); // Translation function
+
   return (
     <footer className="footer">
       <div className="footer__container">
+        
         {/* Online Shopping Section */}
         <div className="footer__section">
-          <h4>ONLINE SHOPPING</h4>
+          <h4>{t("ONLINE")} {t("SHOPPING")}</h4>
           <ul>
-            <li>Men</li>
-            <li>Women</li>
-            <li>Kids</li>
-            <li>Home & Living</li>
-            <li>Beauty</li>
-            <li>Gift Cards</li>
-            <li>Myntra Insider</li>
+            <li>{t("Men")}</li>
+            <li>{t("Women")}</li>
+            <li>{t("Kids")}</li>
+            <li>{t("Home")} & {t("Living")}</li>
+            <li>{t("Beauty")}</li>
+            <li>{t("Gift")} {t("Cards")}</li>
+            <li>{t("Myntra")} {t("Insider")}</li>
           </ul>
         </div>
 
         {/* Customer Policies Section */}
         <div className="footer__section">
-          <h4>CUSTOMER POLICIES</h4>
+          <h4>{t("CUSTOMER")} {t("POLICIES")}</h4>
           <ul>
-            <li><Link className="text-decoration-none text-dark-emphasis" to="/contactus">Contact Us</Link></li>
-            <li>FAQ</li>
-            <li>T&C</li>
-            <li>Terms Of Use</li>
-            <li>Track Orders</li>
-            <li>Shipping</li>
-            <li>Cancellation</li>
-            <li>Returns</li>
-            <li>Privacy Policy</li>
-            <li>Grievance Redressal</li>
+            <li>
+              <Link className="text-decoration-none text-dark-emphasis" to="/contactus">
+                {t("Contact")} {t("Us")}
+              </Link>
+            </li>
+            <li>{t("FAQ")}</li>
+            <li>{t("Terms")} & {t("Conditions")}</li>
+            <li>{t("Terms")} {t("Of")} {t("Use")}</li>
+            <li>{t("Track")} {t("Orders")}</li>
+            <li>{t("Shipping")}</li>
+            <li>{t("Cancellation")}</li>
+            <li>{t("Returns")}</li>
+            <li>{t("Privacy")} {t("Policy")}</li>
+            <li>{t("Grievance")} {t("Redressal")}</li>
           </ul>
         </div>
 
         {/* Useful Links Section */}
         <div className="footer__section">
-          <h4>USEFUL LINKS</h4>
+          <h4>{t("USEFUL")} {t("LINKS")}</h4>
           <ul>
-            <li>Blog</li>
-            <li>Careers</li>
-            <li>Site Map</li>
-            <li>Corporate Information</li>
-            <li>Whitehat</li>
-            <li>Cleartrip</li>
+            <li>{t("Blog")}</li>
+            <li>{t("Careers")}</li>
+            <li>{t("Site")} {t("Map")}</li>
+            <li>{t("Corporate")} {t("Information")}</li>
+            <li>{t("Whitehat")}</li>
+            <li>{t("Cleartrip")}</li>
           </ul>
         </div>
 
         {/* Mobile App Section */}
         <div className="footer__section">
-          <h4>EXPERIENCE SHOPSPHERE APP ON MOBILE</h4>
+          <h4>{t("EXPERIENCE")} {t("SHOPSPHERE")} {t("APP")} {t("ON")} {t("MOBILE")}</h4>
           <div className="footer_apps">
-       
-          <FaGooglePlay />
-          <FaAppStore />
-
-            
+            <FaGooglePlay className="footer_icon" />
+            <FaAppStore className="footer_icon" />
           </div>
-          <h4>KEEP IN TOUCH</h4>
+
+          {/* Social Media Links */}
+          <h4>{t("KEEP")} {t("IN")} {t("TOUCH")}</h4>
           <div className="footer_socials">
-          <FaFacebook />
-          <FaTwitter/>
-          <FaYoutube/>
-          <FaInstagram/>  
+            <FaFacebook className="footer_icon" />
+            <FaTwitter className="footer_icon" />
+            <FaYoutube className="footer_icon" />
+            <FaInstagram className="footer_icon" />
           </div>
         </div>
 
-        {/* Additional Info */}
+        {/* Additional Info Section */}
         <div className="footer__info">
           <div>
-            <h4>100% ORIGINAL</h4>
-            <p>guarantee for all products at shopsphere.com</p>
+            <h4>{t("100%")} {t("ORIGINAL")}</h4>
+            <p>{t("Guaranteed")} {t("for")} {t("all")} {t("products")} {t("at")} {t("ShopSphere.com")}</p>
           </div>
           <div>
-            <h4>Return within 14 days</h4>
-            <p>of receiving your order</p>
+            <h4>{t("Return")} {t("within")} {t("14")} {t("days")}</h4>
+            <p>{t("of")} {t("receiving")} {t("your")} {t("order")}</p>
           </div>
         </div>
+
       </div>
     </footer>
   );

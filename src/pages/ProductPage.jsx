@@ -14,11 +14,11 @@ import { IoStar } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
 import ProductImageModal from '../Compoents/Product/ProductImageModal'
-
+import { useTranslation } from '../Compoents/Translation/TranslationContext'
 
 
 export default function ProductPage() {
-
+  const {t} = useTranslation();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const { currency, currencyOptions } = useCurrency();
@@ -34,7 +34,7 @@ export default function ProductPage() {
   if (output.length === 0) {
     return (<>
       <Header />
-      <div>Product not found</div>
+      <div>{t("Product")} {t("not")} {t("found")}</div>
       <Footer />
     </>
     )
@@ -54,17 +54,17 @@ export default function ProductPage() {
         <div className="carousel-inner">
           {output[0]?.images.map((image, index) => (
             <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-              <img src={image} className="d-block w-100" alt={`Slide ${index}`} />
+              <img src={image} className="d-block w-100" alt={`${t("Slide")} ${index}`} />
             </div>
           ))}
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
+          <span className="visually-hidden">{t("Previous")}</span>
         </button>
         <button className="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
+          <span className="visually-hidden">{t("Next")}</span>
         </button>
       </div>
 
@@ -72,21 +72,21 @@ export default function ProductPage() {
 
 
         <div className='p-4 w-md-50 w-100'>
-          <div className='fs-3'><b>{output[0]?.brand}</b></div>
-          <div >{output[0]?.name}</div>
-          <div style={{ width: "180px" }} className='d-flex p-1 border border-1 border-dark-subtle'><div className=' d-flex border-end border-dark-subtle border-2 p-1'>{output[0]?.average_rating} <GoStarFill className='mt-1 ms-1' /></div> <div className='p-1 ms-1 d-flex '>{output[0].total_reviews} <div className='ms-1'> Ratings</div></div></div> <hr />
-          <div className='fs-4' > <b>{currencyOptions[currency].symbol} {Number((output[0]?.price.original * currencyOptions[currency].rate).toFixed(2))}</b> MRP <span className='text-decoration-line-through'>{currencyOptions[currency].symbol} {Number((output[0]?.price.discounted * currencyOptions[currency].rate).toFixed(2))}</span> <span className='text-warning' >({output[0].price.discount_percentage}% OFF)</span> </div>
-          <div className=' fw-bolder text-success'>inclusive of all taxes</div>
+          <div className='fs-3'><b>{t(output[0]?.brand)}</b></div>
+          <div >{t(output[0]?.name)}</div>
+          <div style={{ width: "180px" }} className='d-flex p-1 border border-1 border-dark-subtle'><div className=' d-flex border-end border-dark-subtle border-2 p-1'>{output[0]?.average_rating} <GoStarFill className='mt-1 ms-1' /></div> <div className='p-1 ms-1 d-flex '>{output[0].total_reviews} <div className='ms-1'> {t("Ratings")}</div></div></div> <hr />
+          <div className='fs-4' > <b>{currencyOptions[currency].symbol} {Number((output[0]?.price.original * currencyOptions[currency].rate).toFixed(2))}</b> {t("MRP")} <span className='text-decoration-line-through'>{currencyOptions[currency].symbol} {Number((output[0]?.price.discounted * currencyOptions[currency].rate).toFixed(2))}</span> <span className='text-warning' >({output[0].price.discount_percentage}% OFF)</span> </div>
+          <div className=' fw-bolder text-success'>{t("inclusive")} {t("of")} {t("all")} {t("taxes")}</div>
           {output[0].colors.length > 0 && <>
-            <div className='fs-5 fw-bolder'>SELECT COLOR</div>
+            <div className='fs-5 fw-bolder'>{t("SELECT")} {t("COLOR")}</div>
             <div>{output[0].colors.map((color, index) => (<button key={index} onClick={() => setSelectedColor(color.name)} style={{ "background": `${color["hex"]}`, hover: "color.name" }} className={`p-3 me-2 rounded-5 ${selectedColor === color.name ? "border border-3 border-danger" : <></>}`}></button>))}</div>
           </>}
           {output[0].sizes.length > 0 && (
   <>
     <div className='d-flex'>
-      <div className='fs-5 fw-bold'> SELECT SIZE </div>
+      <div className='fs-5 fw-bold'> {t("SELECT")} {t("SIZE")} </div>
       <div className='mx-4 m-1'>
-        <Link className='text-decoration-underline' to='/'>SIZE CHART</Link>
+        <Link className='text-decoration-underline' to='/'>{t("SIZE")} {t("CHART")}</Link>
       </div>
     </div>
 
@@ -103,7 +103,7 @@ export default function ProductPage() {
             ${selectedSize === size.size ? "text-danger border-danger" : ""}
             ${isHovered === size.size ? "border-danger" : ""} bg-white`}
         >
-          {size["size"]}
+          {t(size["size"])}
         </button>
       ))}
     </div>
@@ -114,31 +114,31 @@ export default function ProductPage() {
             <button onClick={(e) => {
               e.preventDefault();
               addToCart(output[0], selectedColor, selectedSize);
-            }} className="w-50 m-3 p-2 btn btn-danger"><HiShoppingBag /> ADD TO BAG</button>
+            }} className="w-50 m-3 p-2 btn btn-danger"><HiShoppingBag /> {t("ADD")} {t("TO")} {t("BAG")}</button>
             <button onClick={() => {
               addToWishlist(output[0])
-            }} className={`w-25 m-3 p-2  btn btn-light ${isPresent ? " text-white bg-secondary " : ""}`}> <FaHeart className={` ${isPresent ? "text-danger" : "text-secondary"}`} /> {`${isPresent ? "WISHLISTED" : " WISHLIST"}`}</button>
+            }} className={`w-25 m-3 p-2  btn btn-light ${isPresent ? " text-white bg-secondary " : ""}`}> <FaHeart className={` ${isPresent ? "text-danger" : "text-secondary"}`} /> {`${isPresent ? t("WISHLISTED") : t("WISHLIST")}`}</button>
           </div>
           <hr />
           <div>
-            <div className='fw-bolder mb-3'>DELIVERY OPTIONS <CiDeliveryTruck /></div>
-            <input type='code' placeholder='Enter Your Pincode' />
-            <div><b>Policy:</b> {output[0].return_policy["policy"]}</div>
-            <div> <b> Condition:</b> {output[0].return_policy["condition"]}</div>
+            <div className='fw-bolder mb-3'>{t("DELIVERY")} {t("OPTIONS")} <CiDeliveryTruck /></div>
+            <input type='code' placeholder={t("Enter Your Pincode")} />
+            <div><b>Policy:</b> {t(output[0].return_policy["policy"])}</div>
+            <div> <b> Condition:</b> {t(output[0].return_policy["condition"])}</div>
 
           </div>
           <hr />
           <div>
-            <div className='fw-bolder'>PRODUCTS DETAILS</div>
-            <div>{output[0].description}</div>
+            <div className='fw-bolder'>{t("PRODUCTS")} {t("DETAILS")}</div>
+            <div>{t(output[0].description)}</div>
           </div>
           <hr />
           <div>
-            <div className='fw-bolder'>RATINGS</div>
+            <div className='fw-bolder'>{t("RATINGS")}</div>
             <div className='d-flex flex-column flex-sm-row mt-4 '>
               <div className='border-2 border-end border-dark-subtle pe-5 justify-content-sm-start text-center me-2'>
                 <div className='fs-1'> {output[0].average_rating}<IoStar className='text-success fs-3 pb-2' /></div>
-                <div>{output[0].total_reviews} Verified Buyers</div>
+                <div>{output[0].total_reviews} {t("Verified")} {t("Buyers")}</div>
               </div>
               <div className='ms-5'>
                 {Object.keys(output[0].rating_breakdown).reverse().map((i, index) => (<div className='d-flex'>
@@ -154,24 +154,24 @@ export default function ProductPage() {
           </div>
           <hr />
           <div>
-            <div className='fw-bolder'>Customer Reviews</div>
+            <div className='fw-bolder'>{t("Customer")} {t("Reviews")}</div>
 
             {output[0].top_reviews.map((i) => (<>
               <div className='d-flex'>
                 <div style={{ "fontSize": "12px" }} className='ps-1 bg-success text-white d-flex h-25'>{i["rating"]} <IoStar className='m-1' /></div>
                 <div className='mx-2'>
-                  <div><b>{i["title"]}</b></div>
-                  <div>{i["content"]}</div>
-                  <div className='fw-lighter'><span className=' border-end border-dark-subtle border-1 me-2 pe-2'>{i["reviewer"]}</span><span>{i["date"]}</span></div>
+                  <div><b>{t(i["title"])}</b></div>
+                  <div>{t(i["content"])}</div>
+                  <div className='fw-lighter'><span className=' border-end border-dark-subtle border-1 me-2 pe-2'>{t(i["reviewer"])}</span><span>{i["date"]}</span></div>
                 </div>
               </div>
               <hr />
             </>))}
           </div>
-          <div>Product Code: {output[0].id}</div>
+          <div>{t("Product")} {t("Code")}: {output[0].id}</div>
         </div>
       </div>
-      <div className="fw-bolder mx-4 my-2">SIMILAR PRODUCTS</div>
+      <div className="fw-bolder mx-4 my-2">{t("SIMILAR")} {t("PRODUCTS")}</div>
       <div className='d-flex flex-wrap justify-content-center'>
         {output.length > 0 && products.filter((product) => ((product.category_id === output[0].category_id) && product.id !== output[0].id)).slice(0, 7).map((product) => {
           return <ProductCard key={product.id} data={product} />

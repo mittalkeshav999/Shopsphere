@@ -8,9 +8,10 @@ import Footer from '../Compoents/Layout/Footer';
 import { useSearch } from '../Compoents/Product/SearchContext';
 import Sidebar from '../Compoents/Layout/Sidebar';
 import "./Page.css"
+import { useTranslation } from '../Compoents/Translation/TranslationContext';
 
 export default function CategoryPage() {
-
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { product } = useSearch();
@@ -117,34 +118,34 @@ export default function CategoryPage() {
           <Sidebar categoryProducts={categoryProducts} filters={filters} handleColorChange={handleColorChange} handleBrandChange={handleBrandChange} handleDiscountChange={handleDiscountChange} handlePriceChange={handlePriceChange} priceRange={[minPrice,maxPrice]} removeAllFilters={removeAllFilters} />
         </div>
         <div className='mx-auto'>
-          <div className="text-center fw-bold">You are viewing: {name}</div>
+          <div className="text-center fw-bold">{t("You are viewing")}: {t(name)}</div>
           <div className='d-flex my-2'>
           <div className='ms-5'>{filters.brands.map((brand)=>
-          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{brand } <FaTimes onClick={()=>handleBrandChange(brand)} /></span>
+          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{t(brand)} <FaTimes onClick={()=>handleBrandChange(brand)} /></span>
           )}</div>
           <div className='ms-5'>{filters.colors.map((color)=>
-          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{color } <FaTimes onClick={()=>handleColorChange(color)} /></span>
+          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{t(color)} <FaTimes onClick={()=>handleColorChange(color)} /></span>
           )}</div>
           <div className='ms-5'>
           {/* <span className='border mx-1 rounded-5 px-2 py-1 align-items-center'>{filters.discount}  <FaTimes onClick={setFilters(() => {filters.discount: e.target.value })} /></span> */}
           {filters.discount && filters.discount > 0 && (
   <span style={{ fontSize: "0.8rem" }} className="border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
-    {filters.discount}% And Above  
+    {filters.discount}% {t("And")} {t("Above")}  
     <FaTimes onClick={() => setFilters(prev => ({ ...prev, discount: '' }))} />
   </span>
 )}          
           </div>
        </div>
           <div className="filters d-flex justify-content-end mx-4">
-            <div className='mx-2 my-auto'>Sort by: </div>
+            <div className='mx-2 my-auto'>{t("Sort by")}: </div>
             <select className='form-select' style={{width:"200px"}} value={filters.sortBy} onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}>
-              <option value="">Recommended</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="stock-asc">Stock: Low to High</option>
-              <option value="stock-desc">Stock: High to Low</option>
-              <option value="rating-asc">Rating: Low to High</option>
-              <option value="rating-desc">Rating: High to Low</option>
+              <option value="">{t("Recommended")}</option>
+              <option value="price-asc">{t("Price: Low to High")}</option>
+              <option value="price-desc">{t("Price: High to Low")}</option>
+              <option value="stock-asc">{t("Stock: Low to High")}</option>
+              <option value="stock-desc">{t("Stock: High to Low")}</option>
+              <option value="rating-asc">{t("Rating: Low to High")}</option>
+              <option value="rating-desc">{t("Rating: High to Low")}</option>
             </select>
           </div>
 
@@ -160,11 +161,11 @@ export default function CategoryPage() {
           {!(noOfRow <= 0) && 
             <div className='d-flex justify-content-center p-2'>
               <button disabled={currentPage === 1}  onClick={goToFirstPage} className={`border-0 bg-white fw-bolder ${currentPage===1 ? "text-dark-emphasis" : "text-dark" }`} >
-                <FaAngleDoubleLeft /> Page 1 
+                <FaAngleDoubleLeft /> {t("Page")} 1 
               </button>
-              <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===1 ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={prevPage}><FaAngleLeft /> Previous</button>
-              <div className='text-dark-emphasis mx-5 my-auto'>Page {currentPage} of {noOfPages}</div>
-              <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===noOfPages ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={nextPage}>Next <FaAngleRight /></button>
+              <button disabled={currentPage === 1} className={`bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===1 ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={prevPage}><FaAngleLeft /> {t("Previous")}</button>
+              <div className='text-dark-emphasis mx-5 my-auto'>{t("Page")} {currentPage} {t("of")} {noOfPages}</div>
+              <button disabled={currentPage === noOfPages} className={`next bg-white m-2 rounded-2 px-3 py-2 fw-bolder  ${currentPage===noOfPages ? "text-dark-emphasis, border" : "text-dark,border-dark-subtle"} `} onClick={nextPage}>{t("Next")} <FaAngleRight /></button>
             </div>}
 
         </div>

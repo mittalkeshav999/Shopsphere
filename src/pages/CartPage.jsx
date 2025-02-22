@@ -9,10 +9,12 @@ import CartCard from '../Compoents/Product/CartCard'
 import { useCurrency } from '../Compoents/Product/CurrencyContext'
 import CartHead from '../Compoents/Layout/CartHead'
 import { FaBookmark } from "react-icons/fa";
+import { useTranslation } from '../Compoents/Translation/TranslationContext'
 
 
 
 export default function CartPage() {
+  const {t}=useTranslation();
   const {currency,currencyOptions}=useCurrency();
   const { cart } = useCart();
   const totalPrice = Number((cart.reduce((sum, item) => sum + item.price.discounted * item.quantity, 0) * currencyOptions[currency].rate).toFixed(2));
@@ -25,11 +27,11 @@ export default function CartPage() {
 {cart.length === 0 ? <div>
       <Header/>
     <div className='cart_box' >
-    <img src={carts} alt='img'/>
-      <h5>Hey, it feels so light!</h5>
-      <p>There is nothing in your bag.Let's add some items.</p>
+    <img src={carts} alt={t("img")}/>
+      <h5>{t("Hey, it feels so light!")}</h5>
+      <p>{t("There is nothing in your bag. Let's add some items.")}</p>
       
-      <button className='border border-1 rounded-1 border-danger bg-white w-100' > <Link className='text-decoration-none fw-bolder text-danger' to="/wishlist">ADD ITEMS FROM WISHLIST</Link> </button>
+      <button className='border border-1 rounded-1 border-danger bg-white w-100' > <Link className='text-decoration-none fw-bolder text-danger' to="/wishlist">{t("ADD ITEMS FROM WISHLIST")}</Link> </button>
     </div>
     <Footer/>
     </div> : 
@@ -40,17 +42,17 @@ export default function CartPage() {
     {cart.map((item) => (
         <div key={item.id}> <CartCard item={item} /></div>
       ))}
-      <div className='col-12 border border-1 border-dark-subtle m-2 p-2 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FaBookmark/> Add more from Wishlist </Link></div>
+      <div className='col-12 border border-1 border-dark-subtle m-2 p-2 fw-bolder'><Link className='text-decoration-none text-black' to="/wishlist"><FaBookmark/> {t("Add more from Wishlist")} </Link></div>
       </div>
       <div className='col-md-4 col-12 m-2 p-2 border border-1 border-dark-subtle position-relative'>
-        <div className='m-2'>PRICE DETAILS ({cart.length} items)</div>                                    
-        <div className='d-flex justify-content-between m-2'><div>Total MRP</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
-        <div className='d-flex justify-content-between m-2'><div>discount on MRP</div><div>{currencyOptions[currency].symbol}{totalDiscount}</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Coupon Discount</div><div>Apply Coupon</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Platform Fee</div><div>{currencyOptions[currency].symbol}20</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Shipping Fee</div><div>FREE</div></div>
+        <div className='m-2'>{t("PRICE")} {t("DETAILS")} ({cart.length} {t("items")})</div>                                    
+        <div className='d-flex justify-content-between m-2'><div>{t("Total")} {t("MRP")}</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Discount")} {t("on")} {t("MRP")}</div><div>{currencyOptions[currency].symbol}{totalDiscount}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Coupon")} {t("Discount")}</div><div>{t("Apply Coupon")}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Platform")} {t("Fee")}</div><div>{currencyOptions[currency].symbol}20</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Shipping")} {t("Fee")}</div><div>{t("FREE")}</div></div>
         <hr/>
-        <div className='d-flex justify-content-between m-2'><div>Total Amount </div><div>{currencyOptions[currency].symbol}{totalPrice}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Total")} {t("Amount")} </div><div>{currencyOptions[currency].symbol}{totalPrice}</div></div>
         <button className=' f-bolder m-3 btn btn-danger'><Link className='text-decoration-none text-white' to="/checkout">Place Order</Link></button>
       </div>
       </div>

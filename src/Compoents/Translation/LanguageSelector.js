@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "./TranslationContext";
 
-export default function     LanguageSelector() {
+export default function LanguageSelector() {
   const { language, changeLanguage, languages } = useTranslation();
 
   return (

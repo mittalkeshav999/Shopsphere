@@ -4,8 +4,10 @@ import { useCart } from '../Compoents/Product/CartContext';
 import { useCurrency } from '../Compoents/Product/CurrencyContext';
 import CartHead from '../Compoents/Layout/CartHead';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '../Compoents/Translation/TranslationContext';
 
 export default function CheckoutPage() {
+  const {t}=useTranslation();
     const {currency,currencyOptions}=useCurrency();
     const { cart } = useCart();
     const {user}= useContext(AuthContext);
@@ -13,33 +15,33 @@ export default function CheckoutPage() {
     const totalDiscount = Number((cart.reduce((sum, item) => sum + item.price.original * item.quantity, 0) * currencyOptions[currency].rate).toFixed(2));
     const MRP = Number((totalPrice + totalDiscount).toFixed(2));
         
-    if(!user) return <div className='text-center'>Please <Link to="/register"> Log in </Link> First</div>
+    if(!user) return <div className='text-center'>{t("Please")} <Link to="/register"> {t("Log in")} </Link> {t("First")}</div>
   return (
     <div>
     <CartHead/>
       <div className=' d-flex flex-column flex-md-row'>
       <div className='col-md-6 col-12'>
-        <span className='mx-3'>SELECT ADDRESS</span>
+        <span className='mx-3'>{t("SELECT")} {t("ADDRESS")}</span>
         
        {user.Addresses?.map((address)=>(
         <div className='border border-black m-3 p-3 shadow d-flex flex-row'>
         <input name='address' type='radio' />
         <div className='d-flex flex-column'>
-        <div>{user.Name}</div>
-        <div>{address.BuildingNo},{address.Street},{address.City},{address.State},</div><div>Pin Code: {address.PinCode},</div><div> Mobile: {user.Phone}</div>
+        <div>{t(user.Name)}</div>
+        <div>{t(address.BuildingNo)},{t(address.Street)},{t(address.City)},{t(address.State)},</div><div>{t("Pin Code")}: {address.PinCode},</div><div> {t("Mobile")}: {user.Phone}</div>
         </div></div> )
        )}
        </div>
        <div className='col-md-6 col-12 border border-1 border-dark-subtle'>
-        <div className='m-2 fw-bolder text-dark-emphasis'>PRICE DETAILS ({cart.length} items)</div>                                    
-        <div className='d-flex justify-content-between m-2'><div>Total MRP</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Discount on MRP</div><div className='text-success'>-{currencyOptions[currency].symbol}{totalDiscount}</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Coupon Discount</div><div>Apply Coupon</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Platform Fee</div><div>{currencyOptions[currency].symbol}20</div></div>
-        <div className='d-flex justify-content-between m-2'><div>Shipping Fee</div><div className='text-success'>FREE</div></div>
+        <div className='m-2 fw-bolder text-dark-emphasis'>{t("PRICE")} {t("DETAILS")} ({cart.length} {t("items")})</div>                                    
+        <div className='d-flex justify-content-between m-2'><div>{t("Total")} {t("MRP")}</div><div>{currencyOptions[currency].symbol}{MRP}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Discount")} {t("on")} {t("MRP")}</div><div className='text-success'>-{currencyOptions[currency].symbol}{totalDiscount}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Coupon")} {t("Discount")}</div><div>{t("Apply")} {t("Coupon")}</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Platform")} {t("Fee")}</div><div>{currencyOptions[currency].symbol}20</div></div>
+        <div className='d-flex justify-content-between m-2'><div>{t("Shipping")} {t("Fee")}</div><div className='text-success'>{t("FREE")}</div></div>
         <hr/>
-        <div className='d-flex justify-content-between m-2'><div>Total Amount </div><div>{currencyOptions[currency].symbol}{totalPrice}</div></div>
-        <button className=' f-bolder m-3 btn btn-danger'>Place Order</button>
+        <div className='d-flex justify-content-between m-2'><div>{t("Total")} {t("Amount")} </div><div>{currencyOptions[currency].symbol}{totalPrice}</div></div>
+        <button className=' f-bolder m-3 btn btn-danger'>{t("Place")} {t("Order")}</button>
       </div>
       </div>
       <div></div>

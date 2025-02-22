@@ -4,8 +4,10 @@ import { useCurrency } from './CurrencyContext';
 import { FaHeart } from 'react-icons/fa';
 import { useWishlist } from './WishlistContext';
 import { GoStarFill } from "react-icons/go";
+import { useTranslation } from '../Translation/TranslationContext';
 
 export default function ProductCard(props) {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { currency, currencyOptions } = useCurrency();
@@ -46,7 +48,7 @@ export default function ProductCard(props) {
               }}
             >
               {props.data.images.map((img, index) => (
-                <img key={index} src={img} alt="img" style={{ width: "220px", height: "280px", flexShrink: 0 }} />
+                <img key={index} src={img} alt={t("Image")} style={{ width: "220px", height: "280px", flexShrink: 0 }} />
               ))}
             </div>
 
@@ -58,7 +60,7 @@ export default function ProductCard(props) {
                 <span className="text-sm font-semibold me-1">{props.data.average_rating}</span>
                 <GoStarFill size={12} className="text-success" />
                 <span className="text-sm text-gray-600 border-start ms-1 ps-1 border-black">
-                  {props.data.total_reviews}
+                   {props.data.total_reviews}
                 </span>
               </div>
             )}
@@ -85,18 +87,18 @@ export default function ProductCard(props) {
               className="bg-white text-decoration-none border border-1 border-dark-subtle rounded-1 w-100 m-auto"
             >
               <FaHeart className={isPresent ? "text-success" : "text-secondary"} />
-              {`${isPresent ? "WISHLISTED" : " WISHLIST"}`}
+              {`${isPresent ? t("Wishlisted") : t("Wishlist")}`}
             </button>
           )}
         </div>
 
         <Link key={props.data.id} to={`/productpage/${props.data.id}`} className="text-decoration-none text-black">
-          <div className="ms-2">{!isHovered && props?.data?.brand}</div>
+          <div className="ms-2">{!isHovered && t(props?.data?.brand)}</div>
           <div className="text-truncate ms-2" style={{ fontSize: "0.83rem" }}>
-            {!isHovered && props?.data?.name}
+            {!isHovered && t(props?.data?.name)}
           </div>
           <div className="mt-auto ms-2">
-            {isHovered && `Sizes : ${props.data.sizes[0].size} - ${props.data.sizes[props.data.sizes.length - 1].size}`}
+            {isHovered && `${t("Sizes")}: ${props.data.sizes[0].size} - ${props.data.sizes[props.data.sizes.length - 1].size}`}
           </div>
           <div className="d-flex flex-row fs-6 ms-2">
             <div className="pe-1 fw-semibold">
@@ -110,7 +112,7 @@ export default function ProductCard(props) {
             <div className="text-danger-emphasis pt-1" style={{ fontSize: "0.75rem" }}>
               ({currencyOptions[currency].symbol}
               {((props?.data?.price.original - props?.data?.price.discounted) * currencyOptions[currency].rate).toFixed(0)}
-              OFF)
+              {t("OFF")})
             </div>
           </div>
         </Link>

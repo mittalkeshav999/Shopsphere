@@ -7,8 +7,8 @@ import Header from '../Compoents/Layout/Header';
 import Footer from '../Compoents/Layout/Footer';
 import { useSearch } from '../Compoents/Product/SearchContext';
 import Sidebar from '../Compoents/Layout/Sidebar';
-import "./Page.css"
 import { useTranslation } from '../Compoents/Translation/TranslationContext';
+import "../Compoents/CommonStyle.css"
 
 export default function CategoryPage() {
   const {t} = useTranslation();
@@ -121,15 +121,15 @@ export default function CategoryPage() {
           <div className="text-center fw-bold">{t("You are viewing")}: {t(name)}</div>
           <div className='d-flex my-2'>
           <div className='ms-5'>{filters.brands.map((brand)=>
-          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{t(brand)} <FaTimes onClick={()=>handleBrandChange(brand)} /></span>
+          <span className='fontSize8 border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{t(brand)} <FaTimes onClick={()=>handleBrandChange(brand)} /></span>
           )}</div>
           <div className='ms-5'>{filters.colors.map((color)=>
-          <span style={{fontSize:"0.8rem"}} className='border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis'>{t(color)} <FaTimes onClick={()=>handleColorChange(color)} /></span>
+          <span className="fontSize8 border mx-1 rounded-5 px-2 py-1 align-items-center text-dark-emphasis">{t(color)} <FaTimes onClick={()=>handleColorChange(color)} /></span>
           )}</div>
           <div className='ms-5'>
           {/* <span className='border mx-1 rounded-5 px-2 py-1 align-items-center'>{filters.discount}  <FaTimes onClick={setFilters(() => {filters.discount: e.target.value })} /></span> */}
           {filters.discount && filters.discount > 0 && (
-  <span style={{ fontSize: "0.8rem" }} className="border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
+  <span className="fontSize8 border mx-1 rounded-5 px-2 py-1 d-flex align-items-center text-dark-emphasis">
     {filters.discount}% {t("And")} {t("Above")}  
     <FaTimes onClick={() => setFilters(prev => ({ ...prev, discount: '' }))} />
   </span>
@@ -138,7 +138,7 @@ export default function CategoryPage() {
        </div>
           <div className="filters d-flex justify-content-end mx-4">
             <div className='mx-2 my-auto'>{t("Sort by")}: </div>
-            <select className='form-select' style={{width:"200px"}} value={filters.sortBy} onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}>
+            <select className='form-select w200' value={filters.sortBy} onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}>
               <option value="">{t("Recommended")}</option>
               <option value="price-asc">{t("Price: Low to High")}</option>
               <option value="price-desc">{t("Price: High to Low")}</option>

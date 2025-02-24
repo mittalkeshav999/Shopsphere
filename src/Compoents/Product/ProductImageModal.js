@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useRef,useEffect } from "react";
+import "../CommonStyle.css"
 
 
 export default function ProductImageModal(props) {
@@ -28,11 +29,10 @@ export default function ProductImageModal(props) {
               key={index}
               src={img}
               alt={`Thumbnail ${index + 1}`}
-              className={`img-thumbnail ${
+              className={`img-thumbnail cursorPointer w50 ${
                 selectedImage === img ? "border-primary" : "border-0"
               }`}
               onMouseEnter={() => setSelectedImage(img)}
-              style={{ cursor: "pointer", width: "50px" }}
             />
           ))}
         </div>
@@ -42,7 +42,7 @@ export default function ProductImageModal(props) {
           <img
             src={selectedImage}
             alt="Selected"
-            className="img-fluid rounded shadow-lg"
+            className="middleImg rounded shadow-lg"
             style={{ width: "80%", maxHeight:"85vh"}}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => (zoomRef.current.style.display = "block")}
@@ -54,14 +54,7 @@ export default function ProductImageModal(props) {
             ref={zoomRef}
             className="zoom-box border"
             style={{
-              display: "none",
-              position: "absolute",
-              top: "0",
-              left: "34vw",
-              width: "54vw",
-              height: "110vh",
               backgroundImage: `url(${selectedImage})`,
-              backgroundSize: "1000px", // Adjust zoom level
               backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
             }}
           ></div>

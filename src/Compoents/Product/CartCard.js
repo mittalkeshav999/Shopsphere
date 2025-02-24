@@ -12,7 +12,7 @@ export default function CartCard({item}) {
   return (
     <div className='border border-1 border-dark-subtle d-flex w-100 m-2'>
        <div >
-       <Link to={`/productpage/${item.id}`} className='text-decoration-none text-black'>  <img className='m-2' style={{"height":"160px", "width":"120px"}} src={item.images[0]} alt={t("img")}/></Link> 
+       <Link to={`/productpage/${item.id}`} className='text-decoration-none text-black'>  <img className='m-2 h160 w120' src={item.images[0]} alt={t("img")}/></Link> 
        </div>
        <div>
        
@@ -36,7 +36,7 @@ export default function CartCard({item}) {
            
             <div>{t("Color")}: {t(item.selectedColor)}</div>
             <div>{t("Size")}: {t(item.selectedSize)}</div>
-            <div style={{fontSize:"0.86rem"}} className='d-flex flex-row p-1'> <div>{currencyOptions[currency].symbol}{Number((item.price.discounted * currencyOptions[currency].rate * item.quantity).toFixed(2))} </div><div className='text-decoration-line-through text-secondary ps-2' >{currencyOptions[currency].symbol}{Number((item.price.original * currencyOptions[currency].rate * item.quantity).toFixed(2)) }</div> <div className='text-danger-emphasis ps-2 d-sm-block d-none'> {currencyOptions[currency].symbol} {Number((item.price.original-item.price.discounted) * currencyOptions[currency].rate * item.quantity)} {t("OFF")} </div> </div>
+            <div  className='d-flex flex-row p-1 fs9'> <div>{currencyOptions[currency].symbol}{Number((item.price.discounted * currencyOptions[currency].rate * item.quantity).toFixed(2))} </div><div className='text-decoration-line-through text-secondary ps-2' >{currencyOptions[currency].symbol}{Number((item.price.original * currencyOptions[currency].rate * item.quantity).toFixed(2)) }</div> <div className='text-danger-emphasis ps-2 d-sm-block d-none'> {currencyOptions[currency].symbol} {Number((item.price.original-item.price.discounted) * currencyOptions[currency].rate * item.quantity)} {t("OFF")} </div> </div>
             <div>{t(item.return_policy.policy)}</div>
             <div>{t("Delivery")} {t("in")} 2 {t("days")}</div>
        </div>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import "./Wishlist.css"
 import Header from '../Compoents/Layout/Header'
 import carts from "../Assets/images/cart.png"
 import Footer from '../Compoents/Layout/Footer'
@@ -26,12 +25,12 @@ export default function CartPage() {
 
 {cart.length === 0 ? <div>
       <Header/>
-    <div className='cart_box' >
+    <div className='w300 d-flex flex-column mx-auto my-1 text-center' >
     <img src={carts} alt={t("img")}/>
       <h5>{t("Hey, it feels so light!")}</h5>
       <p>{t("There is nothing in your bag. Let's add some items.")}</p>
       
-      <button className='border border-1 rounded-1 border-danger bg-white w-100' > <Link className='text-decoration-none fw-bolder text-danger' to="/wishlist">{t("ADD ITEMS FROM WISHLIST")}</Link> </button>
+      <button className='border border-1 rounded-1 border-danger bg-white w-100 p-2' > <Link className='text-decoration-none fw-bolder text-danger' to="/wishlist">{t("ADD ITEMS FROM WISHLIST")}</Link> </button>
     </div>
     <Footer/>
     </div> : 

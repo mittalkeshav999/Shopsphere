@@ -3,7 +3,6 @@ import React from 'react';
 import HomePage from './pages/HomePage';
 import Register from './Compoents/User/Register';
 import { BrowserRouter, Routes,Route } from 'react-router-dom';
-import ShopPage from './pages/ShopPage';
 import Wishlist from './pages/Wishlist';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
@@ -21,9 +20,7 @@ import { TranslationProvider } from './Compoents/Translation/TranslationContext'
 
 
  
-function App() {
-
-  
+function App() {  
   return (
     <BrowserRouter>
     <AuthProvider>
@@ -35,7 +32,6 @@ function App() {
       <Routes>
       <Route  path='/'  element={<HomePage/>}  />
       <Route path='/register' element={<Register/>} />
-      <Route path='/shoppage' element={<ShopPage/>}/>
       <Route path='/wishlist' element={<Wishlist/>}/>
       <Route path='/productpage/:id' element={<ProductPage/>}/>
       <Route path='/cartpage' element={<CartPage/>}/>

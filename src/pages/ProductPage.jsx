@@ -46,7 +46,7 @@ export default function ProductPage() {
       <Header />
 
       <div className="d-flex flex-md-row flex-column">
-        <div style={{ top: "28px" }} className='w-100 h-100 mx-2 p-2 d-flex z-1 d-none d-md-block flex-wrap position-sticky'>
+        <div className=' top28 w-100 h-100 mx-2 p-2 d-flex z-1 d-none d-md-block flex-wrap position-sticky'>
           <ProductImageModal prod={output} />
         </div>
 
@@ -68,18 +68,15 @@ export default function ProductPage() {
         </button>
       </div>
 
-
-
-
         <div className='p-4 w-md-50 w-100'>
           <div className='fs-3'><b>{t(output?.brand)}</b></div>
           <div >{t(output?.name)}</div>
-          <div style={{ width: "180px" }} className='d-flex p-1 border border-1 border-dark-subtle'><div className=' d-flex border-end border-dark-subtle border-2 p-1'>{output?.average_rating} <GoStarFill className='mt-1 ms-1' /></div> <div className='p-1 ms-1 d-flex '>{output.total_reviews} <div className='ms-1'> {t("Ratings")}</div></div></div> <hr />
+          <div className='w170 d-flex p-1 border border-1 border-dark-subtle'><div className=' d-flex border-end border-dark-subtle border-2 p-1'>{output?.average_rating} <GoStarFill className='mt-1 ms-1' /></div> <div className='p-1 ms-1 d-flex '>{output.total_reviews} <div className='ms-1'> {t("Ratings")}</div></div></div> <hr />
           <div className='fs-4' > <b>{currencyOptions[currency].symbol} {Number((output?.price.original * currencyOptions[currency].rate).toFixed(2))}</b> {t("MRP")} <span className='text-decoration-line-through'>{currencyOptions[currency].symbol} {Number((output?.price.discounted * currencyOptions[currency].rate).toFixed(2))}</span> <span className='text-warning' >({output.price.discount_percentage}% {t("OFF")})</span> </div>
           <div className=' fw-bolder text-success'>{t("inclusive")} {t("of")} {t("all")} {t("taxes")}</div>
           {output.colors.length > 0 && <>
             <div className='fs-5 fw-bolder'>{t("SELECT")} {t("COLOR")}</div>
-            <div>{output.colors.map((color, index) => (<button key={index} onClick={() => setSelectedColor(color.name)} style={{ "background": `${color["hex"]}`, hover: "color.name" }} className={`p-3 me-2 rounded-5 ${selectedColor === color.name ? "border border-3 border-danger" : <></>}`}></button>))}</div>
+            <div>{output.colors.map((color, index) => (<button key={index} onClick={() => setSelectedColor(color.name)} style={{ "background": `${color["hex"]}` }} className={`p-3 me-2 rounded-5 ${selectedColor === color.name ? "border border-3 border-danger" : <></>}`}></button>))}</div>
           </>}
           {output.sizes.length > 0 && (
   <>
@@ -95,13 +92,12 @@ export default function ProductPage() {
         <button
           key={size.size}
           disabled={size["available"] === false}
-          onMouseEnter={() => setIsHovered(size.size)} // Track hovered size
-          onMouseLeave={() => setIsHovered(null)} // Reset when not hovered
+          onMouseEnter={() => setIsHovered(size.size)}
+          onMouseLeave={() => setIsHovered(null)} 
           onClick={() => setSelectedSize(size.size)}
-          style={{ height: "50px", width: "auto", minWidth: "50px" }}
-          className={`me-2 rounded-5 
-            ${selectedSize === size.size ? "text-danger border-danger" : ""}
-            ${isHovered === size.size ? "border-danger" : ""} bg-white`}
+          className={`me-2 rounded-5 bg-white border-1 h50 minW50
+            ${selectedSize === size.size ? " border-danger border-2" : ""}
+            ${isHovered === size.size ? "border-danger " : ""} `}
         >
           {t(size["size"])}
         </button>
@@ -143,7 +139,7 @@ export default function ProductPage() {
               <div className='ms-5'>
                 {Object.keys(output.rating_breakdown).reverse().map((i, index) => (<div className='d-flex'>
                   <div>{i}<IoStar className='pb-1' /></div>
-                  <div className=' bg-dark-su btle mt-2' style={{ width: "200px", height: "8px" }}>
+                  <div className=' bg-dark-subtle mt-2 w200 h8'>
                     <div style={{ height: "8px", backgroundColor: reviewColor[index % reviewColor.length], width: `${(output.rating_breakdown[i] / output.total_reviews) * 100}%` }}></div>
                   </div>
                   <div className='ms-2'>{output.rating_breakdown[i]}</div>
@@ -158,7 +154,7 @@ export default function ProductPage() {
 
             {output.top_reviews.map((i) => (<>
               <div className='d-flex'>
-                <div style={{ "fontSize": "12px" }} className='ps-1 bg-success text-white d-flex h-25'>{i["rating"]} <IoStar className='m-1' /></div>
+                <div className='ps-1 bg-success text-white d-flex h20 fs12'>{i["rating"]} <IoStar className='m-1' /></div>
                 <div className='mx-2'>
                   <div><b>{t(i["title"])}</b></div>
                   <div>{t(i["content"])}</div>
@@ -174,7 +170,8 @@ export default function ProductPage() {
       <div className="fw-bolder mx-4 my-2">{t("SIMILAR")} {t("PRODUCTS")}</div>
       <div className='d-flex flex-wrap justify-content-center'>
         {output && products.filter((product) => ((product.category_id === output.category_id) && product.id !== output.id)).slice(0, 7).map((product) => {
-          return <ProductCard data={product} />})}</div>
+          return <ProductCard key={product.id} data={product} />
+        })}</div>
       <Footer />
 
     </div>

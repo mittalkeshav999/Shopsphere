@@ -25,7 +25,7 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
   const visibleColors = showAll ? uniqueColors : uniqueColors.slice(0, 5);
   
   return (
-    <div style={{ width: "200px", padding: "20px" }} className='sidebar_box'>
+    <div className='w200 p-3'>
       
       <div className='categories d-flex flex-column'>
         <div className='d-flex'>
@@ -35,7 +35,7 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
           </button>
         </div>
         {uniqueBrands.map((brand) => (
-          <label key={brand} style={{ cursor: "pointer" }}>
+          <label key={brand} className='cursorPointer' >
             <input
               type="checkbox"
               className='mx-2'
@@ -52,7 +52,7 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
       <div className='color d-flex flex-column'>
         <h5>{t("COLOR")}</h5>
         {visibleColors.map((color) => (
-          <label key={color} style={{ cursor: "pointer" }}>
+          <label key={color} className='cursorPointer'>
             <input
               type="checkbox"
               className='mx-2'

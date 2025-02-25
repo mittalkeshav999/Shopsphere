@@ -1,11 +1,13 @@
 import React, { useContext,useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../Layout/Header'
-import "./Register.css"
+// import "./Register.css"
+import "../CommonStyle.css"
 import registerimage from "../../Assets/images/registerpage.png"
 import { AuthContext } from '../Product/AuthContext'
 import { useTranslation } from '../Translation/TranslationContext'
 import { toast } from 'react-toastify'
+import Button from '../Layout/Button'
 
 export default function Register() {
   const {t} = useTranslation();
@@ -26,8 +28,8 @@ export default function Register() {
   return (
     <div >
       <Header/>
-      <div className='box'>
-        <img src={registerimage} alt={t("img")} />
+      <div className='w400 m-auto border'>
+        <img className='w400' src={registerimage} alt={t("img")} />
         <div className='d-flex flex-column justify-content-start p-1'>
             <div className='m-2'>
                <b>{t("Login")}</b>  {t("or")} <b>{t("Signup")}</b>
@@ -36,7 +38,9 @@ export default function Register() {
             <input className='text' type='email' value={email} onChange={(e)=>setEmail(e.target.value)} placeholder={t("Email")}/>
             <input className='mt-2' type='password' value={password} onChange={(e)=>setPassword(e.target.value)} placeholder={t("password")}/>
             <p className='text'>{t("By continuing, I agree to the Terms of Use & Privacy Policy")} </p>
-            <Link to="/"><button onClick={handleLogin} className="text-decoration-none text-black w-100">{t("Login")}</button></Link>
+            <Link to="/">
+            <Button onClick={handleLogin} btn="primary"className='overflow-hidden w-100 mx-auto' text={t("Login")} />
+            </Link>
             <p className='text'>Having trouble logging in? Get help</p>
         </div>
       </div>

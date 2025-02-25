@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
-        
+
         {/* Online Shopping Section */}
         <div className="footer__section">
           <h4>{t("ONLINE")} {t("SHOPPING")}</h4>

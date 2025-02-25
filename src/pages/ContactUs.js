@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "../Compoents/Translation/TranslationContext";
+import Button from "../Compoents/Layout/Button";
 const ContactUs = () => {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +23,7 @@ const ContactUs = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) 
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = "Invalid email format";
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
@@ -33,7 +34,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setLoading(true);
@@ -110,10 +111,7 @@ const ContactUs = () => {
           ></textarea>
           {errors.message && <div className="invalid-feedback">{t(errors.message)}</div>}
         </div>
-
-        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
-          {loading ? t("Submitting...") : t("Submit")}
-        </button>
+        <Button disabled={loading} text={loading ? t("Submitting...") : t("Submit")} btn="primary" className="w-100" />
       </form>
     </div>
   );

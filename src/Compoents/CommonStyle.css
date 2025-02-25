@@ -30,8 +30,14 @@
 .w200{
     width: 200px !important;    
 }
+.w220{
+    width: 220px !important;
+}
 .w300{
     width: 300px;
+}
+.w400{
+    width: 400px;
 }
 .minW50{
     min-width: 50px;
@@ -58,6 +64,12 @@
 }
 .h250{
     height: 250px;
+}
+.h280{
+    height: 280px;
+}
+.h360{
+    height: 360px !important;
 }
 
 

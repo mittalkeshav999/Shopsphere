@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from '../Translation/TranslationContext';
+import Button from './Button';
 
 const priorityColors = ["Black", "White", "Red", "Blue", "Green"];
 const discountRanges = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
@@ -23,16 +24,17 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
   const uniqueBrands = useMemo(() => [...new Set(categoryProducts.map(product => product.brand))], [categoryProducts]);
 
   const visibleColors = showAll ? uniqueColors : uniqueColors.slice(0, 5);
-  
+
   return (
     <div className='w200 p-3'>
-      
+
       <div className='categories d-flex flex-column'>
         <div className='d-flex'>
           <h5 className='fw-semibold'>{t("BRANDS")}</h5>
-          <button className='ms-auto text-danger border-0 bg-white fw-semibold' onClick={removeAllFilters}>
-            {t("Clear")} {t("All")}
-          </button>
+
+          <Button className='ms-auto text-danger border-0 bg-white fw-semibold'
+            onClick={removeAllFilters}
+            text={`${t("Clear")} ${t("All")}`} />
         </div>
         {uniqueBrands.map((brand) => (
           <label key={brand} className='cursorPointer' >
@@ -48,7 +50,7 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
       </div>
 
       <hr />
-     
+
       <div className='color d-flex flex-column'>
         <h5>{t("COLOR")}</h5>
         {visibleColors.map((color) => (
@@ -62,15 +64,16 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
             {t(color)}
           </label>
         ))}
+
         {uniqueColors.length > 5 && (
-          <button className='border-0 bg-white text-danger' onClick={() => setShowAll(!showAll)}>
-            {showAll ? `${t("Show Less")}` : `+ ${uniqueColors.length - 5} ${t("More")}`}
-          </button>
+          <Button className='border-0 bg-white text-danger'
+            onClick={() => setShowAll(!showAll)}
+            text={showAll ? `${t("Show Less")}` : `+ ${uniqueColors.length - 5} ${t("More")}`} />
         )}
       </div>
 
       <hr />
- 
+
       <div className='discount'>
         <h5>{t("DISCOUNT RANGE")}</h5>
         {discountRanges.map((discount) => (

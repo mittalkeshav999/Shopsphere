@@ -29,7 +29,7 @@ export default function Carousel() {
         <div
           className={` slider translate-${index}`}>
           {images.map((img, i) => (
-            <img key={i} src={img} alt="carousel" className="w-100 f_s0"  />
+            <img key={i} src={img} alt="carousel" className="w-100 f_s0" />
           ))}
         </div>
       </div>

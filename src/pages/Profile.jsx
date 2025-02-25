@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Compoents/Product/AuthContext";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../Compoents/Translation/TranslationContext";
+import Button from "../Compoents/Layout/Button";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -41,11 +42,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="d-flex justify-content-center mt-5">
-          <button className="bg-danger rounded-2" onClick={logout}>
-            <Link to="/" className="text-decoration-none text-white">
-              {t("Logout")}
-            </Link>
-          </button>
+          <Link to="/"> <Button btn="danger" text={t("Logout")} onClick={logout} /></Link>
         </div>
       </div>
     </div>

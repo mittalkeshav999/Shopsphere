@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../CommonStyle.css"
+import Button from "./Button";
 import logo from "../../Assets/images/logo.png";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { categories, products } from "../../Data/Data";
@@ -14,7 +15,7 @@ import { useCurrency } from "../Product/CurrencyContext";
 import { useCart } from "../Product/CartContext";
 import { AuthContext } from "../Product/AuthContext";
 import { CiSearch } from "react-icons/ci";
-import { useTranslation } from "../Translation/TranslationContext"; // Import translation hook
+import { useTranslation } from "../Translation/TranslationContext";
 
 export default function Header() {
   const { t } = useTranslation(); // Get translation function
@@ -53,17 +54,17 @@ export default function Header() {
 
   return (
     <header className="row position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-2 w-100 m-0">
-      {/* Logo and Menu */}
       <div className="d-flex me-auto col-5 col-sm-2 order-1">
         <Link to="/">
           <img className="h20" src={logo} alt={t("Logo")} />
         </Link>
-        <button className="d-flex border-0 bg-transparent ms-3 align-items-center" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <LiaTimesSolid /> : <HiMiniBars3 />}
-        </button>
+
+        <Button onClick={() => setMenuOpen(!menuOpen)}
+          className="d-flex border-0 bg-transparent ms-3 align-items-center"
+          text={menuOpen ? <LiaTimesSolid /> : <HiMiniBars3 />} />
 
         <div className={`${menuOpen ? "d-flex flex-column position-absolute bg-white w-100 top-100 start-0 shadow p-3" : "d-none"} align-items-center`}>
-          <ul className="d-flex gap-1 gap-md-5 gap-sm-3 list-unstyled p-0 m-0"> 
+          <ul className="d-flex gap-1 gap-md-5 gap-sm-3 list-unstyled p-0 m-0">
             {categories.map((category) => (
               <li key={category.id}>
                 <Link className="fw-bolder text-black text-decoration-none fs9" to={`/categorypage/${category.name}`} onClick={() => setMenuOpen(false)}>
@@ -74,7 +75,7 @@ export default function Header() {
           </ul>
         </div>
       </div>
-      
+
       <div className="d-flex align-items-center text-center col-12 col-sm-5 order-3 order-sm-2">
         <div className="p-1 ps-2 h40 w40 bgSearch">
           <CiSearch />
@@ -86,11 +87,9 @@ export default function Header() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button className=" btn btn-danger px-2 py-1 mx-1 " onClick={handleSearch}>
-          {t("Search")}
-        </button>
+        <Button onClick={() => handleSearch} text={t("Search")} btn={"danger"} />
       </div>
-     
+
       <div className="d-flex align-items-center gap-2 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">
         <div className="m-0 d-none d-lg-block"> <LanguageSelector /></div>
         <label className="m-0 d-none d-lg-block">{t("Currency")}:</label>

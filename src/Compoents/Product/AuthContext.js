@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import {users} from "../../Data/Users"
+import { users } from "../../Data/Users"
 
 // Create Context
 export const AuthContext = createContext();
@@ -10,12 +10,12 @@ const AuthProvider = ({ children }) => {
   // Function to log in
   const login = async (email, password) => {
     try {
-      
+
       const foundUser = users.find(
         (u) => u["Email"] === email && u["Password"] === password);
 
       if (foundUser) {
-        setUser(foundUser);         
+        setUser(foundUser);
         localStorage.setItem("user", JSON.stringify(foundUser)); // Store user data
         return true;
       } else {

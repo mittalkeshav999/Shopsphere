@@ -5,6 +5,7 @@ import { useCurrency } from '../Compoents/Product/CurrencyContext';
 import CartHead from '../Compoents/Layout/CartHead';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../Compoents/Translation/TranslationContext';
+import Button from '../Compoents/Layout/Button';
 
 export default function CheckoutPage() {
   const {t}=useTranslation();
@@ -41,7 +42,7 @@ export default function CheckoutPage() {
         <div className='d-flex justify-content-between m-2'><div>{t("Shipping")} {t("Fee")}</div><div className='text-success'>{t("FREE")}</div></div>
         <hr/>
         <div className='d-flex justify-content-between m-2'><div>{t("Total")} {t("Amount")} </div><div>{currencyOptions[currency].symbol}{totalPrice}</div></div>
-        <button className=' f-bolder m-3 btn btn-danger'>{t("Place")} {t("Order")}</button>
+        <Button text={`${t("Place")} ${t("Order")}`} btn='danger'/>
       </div>
       </div>
       <div></div>

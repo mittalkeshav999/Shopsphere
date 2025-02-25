@@ -8,8 +8,9 @@ import { FaHeart } from 'react-icons/fa';
 import { useWishlist } from './WishlistContext';
 import { GoStarFill } from "react-icons/go";
 import { useTranslation } from '../Translation/TranslationContext';
+import Button from '../Layout/Button';
 
-export default function ProductCard(props) {
+export default function ProductCard({data,wishCard}) {
   const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
@@ -19,17 +20,17 @@ export default function ProductCard(props) {
         const [selectedSize,setSelectedSize]=useState(null);
         const {addToCart}=useCart();
   const { addToWishlist, wishlist,removeFromWishlist } = useWishlist();
-  const isPresent = wishlist.some(prod => prod.id === props.data.id);
+  const isPresent = wishlist.some(prod => prod.id === data.id);
 
   useEffect(() => {
     let interval;
-    if (isHovered && props.data.images.length > 1) {
+    if (isHovered && data.images.length > 1) {
       interval = setInterval(() => {
-        setCurrentImageIndex(prevIndex => (prevIndex + 1) % props.data.images.length);
+        setCurrentImageIndex(prevIndex => (prevIndex + 1) % data.images.length);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isHovered, props.data.images.length]);
+  }, [isHovered, data.images.length]);
 
   return (<>
     <div
@@ -39,35 +40,24 @@ export default function ProductCard(props) {
         setCurrentImageIndex(0);
       }}
     >
-      <div
-        style={{ width: "220px", height: "360px" }}
-        className={`d-flex flex-column position-relative m-2 ${isHovered && !props.wishCard ? "shadow" : ""}`}
-      >
-        <div style={{ overflow: "hidden", position: "relative", width: "100%", height: "280px" }}>
-          <Link key={props.data.id} to={`/productpage/${props.data.id}`} className="text-decoration-none text-black">
-            <FaTimes onClick={(e)=>{e.preventDefault();removeFromWishlist(props.data)}} className=' position-absolute end-0 m-2 bg-opacity-50 text-dark-emphasis bg-white border rounded-5' />
-            <div className={ !props.wishCard && `slider translate-${currentImageIndex}`}
-              // style={{
-              //   display: "flex",
-              //   transition: "transform 0.3s ease-in-out",
-              //   transform: `translateX(-${currentImageIndex * 100}%)`,
-              //   width: "100%",
-              // }}
-            >
-              { props.data.images.map((img, index) => (
-                <img key={index} src={img} alt={t("Image")} style={{ width: "220px", height: "280px", flexShrink: 0 }} />
+      <div className={`d-flex flex-column position-relative m-2 h360 w220 ${isHovered && !wishCard ? "shadow" : ""}`}>
+        <div className='overflow-hidden position-relative w-100 h280' >
+          <Link key={data.id} to={`/productpage/${data.id}`} className="text-decoration-none text-black">
+            <FaTimes onClick={(e)=>{e.preventDefault();removeFromWishlist(data)}} className=' position-absolute end-0 m-2 bg-opacity-50 text-dark-emphasis bg-white border rounded-5' />
+            <div className={ !wishCard && `slider translate-${currentImageIndex}`}>
+              { data.images.map((img, index) => (
+                <img key={index} src={img} alt={t("Image")} className='w220 h280 f_s0'  />
               ))}
             </div>
 
-            {!isHovered && !props.wishCard && (
+            {!isHovered && !wishCard && (
               <div
-                style={{ fontSize: "0.7rem" }}
-                className={`position-absolute fw-bolder bottom-0 start-0 mb-2 ms-2 bg-opacity-50 bg-white ${props.wishCard ? "" : "shadow"} px-2 py-1 rounded d-flex align-items-center`}
+                className={`position-absolute fw-bolder fs7 bottom-0 start-0 mb-2 ms-2 bg-opacity-50 bg-white ${wishCard ? "" : "shadow"} px-2 py-1 rounded d-flex align-items-center`}
               >
-                <span className="text-sm font-semibold me-1">{props.data.average_rating}</span>
+                <span className="text-sm font-semibold me-1 ">{data.average_rating}</span>
                 <GoStarFill size={12} className="text-success" />
                 <span className="text-sm text-gray-600 border-start ms-1 ps-1 border-black">
-                   {props.data.total_reviews}
+                   {data.total_reviews}
                 </span>
               </div>
             )}
@@ -76,56 +66,55 @@ export default function ProductCard(props) {
 
         {/* Dots Navigation */}
         <div className="d-flex justify-content-center my-1">
-          {isHovered && !props.wishCard &&
-            props.data.images.map((_, i) => (
+          {isHovered && !wishCard &&
+            data.images.map((_, i) => (
               <div
                 key={i}
-                style={{ width: "5px", height: "5px", display: "inline-block", cursor: "pointer" }}
-                className={`rounded mx-1 ${currentImageIndex === i ? "bg-danger" : "bg-dark-subtle"}`}
+                className={`rounded w5 h5 d-inline-block cursorPointer mx-1 ${currentImageIndex === i ? "bg-danger" : "bg-dark-subtle"}`}
                 onClick={() => setCurrentImageIndex(i)}
               />
             ))}
         </div>
 
         <div className="mb-1 mx-2">
-          {isHovered && !props.wishCard && (
-            <button
-              onClick={() => addToWishlist(props.data)}
-              className="bg-white text-decoration-none border border-1 border-dark-subtle rounded-1 w-100 m-auto"
-            >
-              <FaHeart className={isPresent ? "text-success" : "text-secondary"} />
-              {`${isPresent ? t("Wishlisted") : t("Wishlist")}`}
-            </button>
-          )}
+          {(isHovered && !wishCard) &&
+            <Button onClick={()=>addToWishlist(data)}
+                    icon={<FaHeart className={`${isPresent ? "text-success" : "text-secondary"} mx-1`} />}
+                    className="bg-white text-decoration-none border border-1 border-dark-subtle rounded-1 w-100 m-auto"
+                    text={`${isPresent ? t("Wishlisted") : t("Wishlist")}`} />
+          }
         </div>
 
-        <Link key={props.data.id} to={`/productpage/${props.data.id}`} className="text-decoration-none text-black">
-          <div className="ms-2">{!isHovered && !props.wishCard && t(props?.data?.brand)}</div>
-          <div className="text-truncate ms-2" style={{ fontSize: "0.83rem" }}>
-            {(!isHovered || props.wishCard) && t(props?.data?.name)}
+        <Link key={data.id} to={`/productpage/${data.id}`} className="text-decoration-none text-black">
+          <div className="ms-2">{!isHovered && !wishCard && t(data?.brand)}</div>
+          <div className="text-truncate ms-2 fontSize8">
+            {(!isHovered || wishCard) && t(data?.name)}
           </div>
           <div className="mt-auto ms-2">
-            {isHovered && !props.wishCard && `${t("Sizes")}: ${props.data.sizes[0].size} - ${props.data.sizes[props.data.sizes.length - 1].size}`}
+            {isHovered && !wishCard && `${t("Sizes")}: ${data.sizes[0].size} - ${data.sizes[data.sizes.length - 1].size}`}
           </div>
           <div className="d-flex flex-row fs-6 ms-2">
             <div className="pe-1 fw-semibold">
               {currencyOptions[currency].symbol}
-              {(props?.data?.price.discounted * currencyOptions[currency].rate).toFixed(0)}
+              {(data?.price.discounted * currencyOptions[currency].rate).toFixed(0)}
             </div>
-            <div className="text-decoration-line-through text-secondary px-1 pt-1" style={{ fontSize: "0.8rem" }}>
+            <div className="text-decoration-line-through text-secondary px-1 pt-1 fontSize8">
               {currencyOptions[currency].symbol}
-              {(props?.data?.price.original * currencyOptions[currency].rate).toFixed(0)}
+              {(data?.price.original * currencyOptions[currency].rate).toFixed(0)}
             </div>
-            <div className="text-danger-emphasis pt-1" style={{ fontSize: "0.75rem" }}>
+            <div className="text-danger-emphasis pt-1 fs7">
               ({currencyOptions[currency].symbol}
-              {((props?.data?.price.original - props?.data?.price.discounted) * currencyOptions[currency].rate).toFixed(0)}
+              {((data?.price.original - data?.price.discounted) * currencyOptions[currency].rate).toFixed(0)}
               {t("OFF")})
             </div>
           </div>
         </Link>
-       {props.wishCard && <button className='bg-white border text-danger fw-bolder p-2' onClick={(e) =>{e.preventDefault(); 
-        setIsOpen(true)
-        }}>{t("MOVE TO BAG")} </button>}
+
+       {wishCard && 
+      <Button onClick={(e) =>{e.preventDefault(); setIsOpen(true)}}
+              text={t("MOVE TO BAG")}
+              className='bg-white border border-1 text-danger fw-bolder p-2' />
+        }
       </div>
     </div>
 
@@ -136,34 +125,43 @@ export default function ProductCard(props) {
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
         <div className="modal-header">
-         <img style={{width:"50px"}} src={props.data.images[0]}  alt={t("productImage")}/>
-         <div className='d-flex flex-column'><div className='justify-content-start mx-1'>{t(props.data.name)}</div><div className='d-flex flex-row px-2 fs-6'> <div className='pe-1 fw-semibold'>{currencyOptions[currency].symbol}{(props?.data?.price.discounted *currencyOptions[currency].rate).toFixed(0)} </div><div className='text-decoration-line-through text-secondary px-1 pt-1' style={{fontSize:"0.8rem"}} >{currencyOptions[currency].symbol}{(props?.data?.price.original * currencyOptions[currency].rate).toFixed(0) }</div> <div className='text-danger-emphasis pt-1' style={{fontSize:"0.75rem"}}> ({currencyOptions[currency].symbol}{((props?.data?.price.original-props?.data?.price.discounted)* currencyOptions[currency].rate).toFixed(0)}{t("OFF")}) </div> </div></div>
-          <button type="button" className="btn-close" onClick={() => setIsOpen(false)}></button>
+         <img className='w50' src={data.images[0]}  alt={t("productImage")}/>
+         <div className='d-flex flex-column'><div className='justify-content-start mx-1'>{t(data.name)}</div><div className='d-flex flex-row px-2 fs-6'> <div className='pe-1 fw-semibold'>{currencyOptions[currency].symbol}{(data?.price.discounted *currencyOptions[currency].rate).toFixed(0)} </div><div className='text-decoration-line-through text-secondary px-1 pt-1 fontSize8' >{currencyOptions[currency].symbol}{(data?.price.original * currencyOptions[currency].rate).toFixed(0) }</div> <div className='text-danger-emphasis pt-1 fs7' > ({currencyOptions[currency].symbol}{((data?.price.original-data?.price.discounted)* currencyOptions[currency].rate).toFixed(0)}{t("OFF")}) </div> </div></div>
+          <Button className='btn-close ms-auto' onClick={()=>setIsOpen(false)} />
         </div>
 
         <div className="modal-body text-center">
           <div className="d-flex flex-column justify-content-center gap-2">
-
-           {props.data.colors.length>0 && <>
+           {data.colors.length>0 && <>
                     <div className='fs-5 fw-bolder'>{t("SELECT")} {t("COLOR")}</div>
-                    <div>{props.data.colors.map((color,index)=>(<button key={index} onClick={()=> setSelectedColor(color.name)} style={{"background":`${color["hex"]}`,hover:"color.name"}}  className={`p-3 me-2 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" :<></>}`}></button>))}</div>
+                    <div>{data.colors.map((color,index)=>(
+                      <Button key={index}
+                              onClick={()=> setSelectedColor(color.name)}
+                              style={{"background":`${color["hex"]}`}}
+                              className={`px-3 py-3 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" : ""}`}
+                               />
+                      ))}</div>
                   </>}
-                  {props.data.sizes.length>0 && <><div className='fs-5 m-auto fw-bold'> {t("SELECT")} {t("SIZE")}  </div>
-                  <div>{props.data.sizes.map((size)=>(<button  key={size.size}
-          disabled={size["available"] === false}
-          onMouseEnter={() => setIsHovered(size.size)} 
-          onMouseLeave={() => setIsHovered(null)}
-          onClick={() => setSelectedSize(size.size)}
-          style={{ height: "50px", width: "auto", minWidth: "50px" }}
-          className={`me-2 rounded-5 
-            ${selectedSize === size.size ? "text-danger border-danger" : ""}
-            ${isHovered === size.size ? "border-danger" : ""} bg-white`}>{t(size["size"])}</button>))}</div> </>} 
+                  {data.sizes.length>0 && <><div className='fs-5 m-auto fw-bold'> {t("SELECT")} {t("SIZE")}  </div>
+                  <div> {data.sizes.map((size) => 
+                           <Button key={size.size}
+                           text={t(size["size"])} 
+                           disabled={size["available"] === false}
+                            onMouseEnter={() => setIsHovered(size.size)}
+                            onMouseLeave={() => setIsHovered(null)} 
+                            onClick={() => setSelectedSize(size.size)}
+                            className={`me-2 rounded-5 bg-white border h50 minW50
+                              ${selectedSize === size.size ? " border-danger border-2" : ""}
+                              ${isHovered === size.size ? "border-danger " : ""} `}/>
+                        )}</div> </>} 
           </div>
         </div>
         <div className="modal-footer">
-          <button className="btn btn-danger w-100" onClick={(!selectedColor || !selectedSize) ?()=>setIsOpen(false):() => {addToCart(props.data,selectedColor,selectedSize);setIsOpen(false);removeFromWishlist(props.data)}}>
-            {t("Done")}
-          </button>
+       
+          <Button btn="danger"
+                  text={t("Done")}
+                  className='w-100'
+                  onClick={(!selectedColor || !selectedSize) ?()=>setIsOpen(false):() => {addToCart(data,selectedColor,selectedSize);setIsOpen(false);removeFromWishlist(data)}} />
         </div>
       </div>
     </div>

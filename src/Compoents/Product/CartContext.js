@@ -62,9 +62,9 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === prod.id &&
-        item.selectedColor === prod.selectedColor &&
-        item.selectedSize === prod.selectedSize &&
-        item.quantity < item.availability.stock_quantity
+          item.selectedColor === prod.selectedColor &&
+          item.selectedSize === prod.selectedSize &&
+          item.quantity < item.availability.stock_quantity
           ? { ...item, quantity: item.quantity + 1 }
           : item
       )
@@ -76,8 +76,8 @@ export const CartProvider = ({ children }) => {
       prevCart
         .map((item) =>
           item.id === prod.id &&
-          item.selectedColor === prod.selectedColor &&
-          item.selectedSize === prod.selectedSize
+            item.selectedColor === prod.selectedColor &&
+            item.selectedSize === prod.selectedSize
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )

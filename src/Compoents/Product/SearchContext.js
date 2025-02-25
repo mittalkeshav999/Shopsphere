@@ -4,10 +4,10 @@ import { products } from "../../Data/Data";
 const SearchContext = createContext();
 
 export const SearchProvider = ({ children }) => {
-  const [product,setProduct]=useState(products);
+  const [product, setProduct] = useState(products);
 
   return (
-    <SearchContext.Provider value={{ product,setProduct }}>
+    <SearchContext.Provider value={{ product, setProduct }}>
       {children}
     </SearchContext.Provider>
   );

@@ -1,23 +1,22 @@
 import { createContext, useState, useContext } from "react";
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
-  
-
   const addToWishlist = (product) => {
-    
-     const isPresent= wishlist.some(prod => prod.id===product.id)
-   if(isPresent) { setWishlist((prevWishlist) => [...prevWishlist]);
-    toast.warning("Already Added")} 
-   else
-    {
-      setWishlist((prevWishlist) => [...prevWishlist,product]);
-    toast.success(`${product.name} added to Wishlist`)
-}
+
+    const isPresent = wishlist.some(prod => prod.id === product.id)
+    if (isPresent) {
+      setWishlist((prevWishlist) => [...prevWishlist]);
+      toast.warning("Already Added")
+    }
+    else {
+      setWishlist((prevWishlist) => [...prevWishlist, product]);
+      toast.success(`${product.name} added to Wishlist`)
+    }
   };
 
   const removeFromWishlist = (product) => {

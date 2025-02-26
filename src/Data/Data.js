@@ -688,7 +688,7 @@ export const products=[
   "id": "p010",
   "name": "Sony PlayStation 5",
   "brand": "Sony",
-  "category_id": "c006",
+  "category_id": "c002",
   "price": {
     "original": 49999,
     "discounted": 45999,

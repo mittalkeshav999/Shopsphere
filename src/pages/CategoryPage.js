@@ -9,7 +9,7 @@ import { useSearch } from '../Compoents/Product/SearchContext';
 import Sidebar from '../Compoents/Layout/Sidebar';
 import { useTranslation } from '../Compoents/Translation/TranslationContext';
 import "../Compoents/CommonStyle.css"
-import Button from '../Compoents/Layout/Button';
+// import Button from '../Compoents/Layout/Button';
 
 export default function CategoryPage() {
   const { t } = useTranslation();
@@ -43,14 +43,15 @@ export default function CategoryPage() {
   const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
-    const newParams = { page: currentPage, rows: noOfRow };
+    const currentParams = Object.fromEntries(searchParams.entries());
+    const newParams = { ...currentParams, page: currentPage, rows: noOfRow };
     if (filters.colors.length) newParams.colors = filters.colors.join(",");
     if (filters.brands.length) newParams.brands = filters.brands.join(",");
     if (filters.sortBy) newParams.sortBy = filters.sortBy;
     if (filters.priceRange) newParams.priceRange = filters.priceRange;
     if (filters.discount) newParams.discount = filters.discount;
     setSearchParams(newParams);
-  }, [filters, setSearchParams, discount, currentPage, noOfRow]);
+  }, [filters, searchParams, setSearchParams, discount, currentPage, noOfRow]);
 
   const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
 
@@ -93,6 +94,7 @@ export default function CategoryPage() {
       discount: e.target.value,
     }));
   };
+  
   const updatePagination = (page, rows) => {
     navigate(`?page=${page}&rows=${rows}`);
   };

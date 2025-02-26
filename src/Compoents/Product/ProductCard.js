@@ -138,7 +138,7 @@ export default function ProductCard({data,wishCard}) {
                       <Button key={index}
                               onClick={()=> setSelectedColor(color.name)}
                               style={{"background":`${color["hex"]}`}}
-                              className={`px-3 py-3 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" : ""}`}
+                              className={`px-3 py-3 rounded-5 ${selectedColor===color.name ? "border border-3 border-danger" : "border"}`}
                                />
                       ))}</div>
                   </>}

@@ -45,12 +45,13 @@ export default function Header() {
 
   const handleSearch = (event) => {
     event.preventDefault();
+    const currentParams = Object.fromEntries(searchParams.entries());
     if (search.trim()) {
-      setSearchParams({ search: search });
+      setSearchParams({ ...currentParams, search: search });
     } else {
-      navigate(searchParams);
+      navigate(currentParams);
     }
-  };
+  }
 
   return (
     <header className="row position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-2 w-100 m-0">
@@ -87,7 +88,7 @@ export default function Header() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button onClick={() => handleSearch} text={t("Search")} btn={"danger"} />
+        <Button onClick={handleSearch} text={t("Search")} btn="danger" />
       </div>
 
       <div className="d-flex align-items-center gap-2 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">

@@ -16,7 +16,6 @@ import { useCurrency } from '../Compoents/Product/CurrencyContext'
 import ProductImageModal from '../Compoents/Product/ProductImageModal'
 import { useTranslation } from '../Compoents/Translation/TranslationContext'
 import Button from '../Compoents/Layout/Button'
-import { text } from '@fortawesome/fontawesome-svg-core'
 
 
 export default function ProductPage() {
@@ -81,7 +80,7 @@ export default function ProductPage() {
               <Button key={index}
                 onClick={() => setSelectedColor(color.name)}
                 style={{ "background": `${color["hex"]}` }}
-                className={`px-3 py-3 rounded-5 ${selectedColor === color.name ? "border border-3 border-danger" : ""}`}
+                className={`px-3 py-3 rounded-5 ${selectedColor === color.name ? "border border-3 border-danger" : " border"}`}
               />
             ))}</div>
           </>}

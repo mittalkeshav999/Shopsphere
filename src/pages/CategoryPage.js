@@ -52,6 +52,9 @@ export default function CategoryPage() {
     if (filters.discount) newParams.discount = filters.discount;
     setSearchParams(newParams);
   }, [filters, searchParams, setSearchParams, discount, currentPage, noOfRow]);
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
 
   const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
 

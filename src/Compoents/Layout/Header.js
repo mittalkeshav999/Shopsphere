@@ -1,58 +1,29 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import "../CommonStyle.css"
 import Button from "./Button";
 import logo from "../../Assets/images/logo.png";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { categories, products } from "../../Data/Data";
+import { Link} from "react-router-dom";
+import { categories } from "../../Data/Data";
 import { LiaTimesSolid } from "react-icons/lia";
 import { SlUser } from "react-icons/sl";
 import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { HiMiniBars3 } from "react-icons/hi2";
 import LanguageSelector from "../Translation/LanguageSelector";
-import { useSearch } from "../Product/SearchContext";
 import { useCurrency } from "../Product/CurrencyContext";
 import { useCart } from "../Product/CartContext";
 import { AuthContext } from "../Product/AuthContext";
-import { CiSearch } from "react-icons/ci";
 import { useTranslation } from "../Translation/TranslationContext";
+import Search from "./Search";
 
 export default function Header() {
-  const { t } = useTranslation(); // Get translation function
+  const { t } = useTranslation(); 
   const { user } = useContext(AuthContext);
   const { currency, setCurrency, currencyOptions } = useCurrency();
-  const { setProduct } = useSearch();
   const { cart } = useCart();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const initialSearch = searchParams.get("search") || "";
-  const [search, setSearch] = useState(initialSearch);
-
-  const searchBtn = (products, search) => {
-    return products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(search.toLowerCase()) ||
-        product.brand.toLowerCase().includes(search.toLowerCase()) ||
-        product.description.toLowerCase().includes(search.toLowerCase())
-    );
-  };
-
-  useEffect(() => {
-    setProduct(searchBtn(products, search));
-  }, [search, setProduct]);
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const currentParams = Object.fromEntries(searchParams.entries());
-    if (search.trim()) {
-      setSearchParams({ ...currentParams, search: search });
-    } else {
-      navigate(currentParams);
-    }
-  }
-
+  
   return (
     <header className="row position-sticky bg-white align-items-center px-3 py-2 shadow top-0 z-2 w-100 m-0">
       <div className="d-flex me-auto col-5 col-sm-2 order-1">
@@ -76,20 +47,8 @@ export default function Header() {
           </ul>
         </div>
       </div>
-
-      <div className="d-flex align-items-center text-center col-12 col-sm-5 order-3 order-sm-2">
-        <div className="p-1 ps-2 h40 w40 bgSearch">
-          <CiSearch />
-        </div>
-        <input
-          type="text"
-          placeholder={`${t("Search")} ${t("for")} ${t("Products")} , ${t("Brands")} ${t("and")} ${t("more")}...`}
-          className="py-1 px-2 border-0 col-sm-10 col-8 bgSearch h40 outline0"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Button onClick={handleSearch} text={t("Search")} btn="danger" />
-      </div>
+  
+      <Search/>
 
       <div className="d-flex align-items-center gap-2 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">
         <div className="m-0 d-none d-lg-block"> <LanguageSelector /></div>

@@ -24,6 +24,7 @@ export default function Search() {
                 product.description.toLowerCase().includes(search.toLowerCase())
         );
     };
+  
     useEffect(() => {
         setProduct(searchBtn(products, search));
     }, [search, setProduct]);
@@ -33,8 +34,12 @@ export default function Search() {
         if (search.trim()) {
             setSearchParams({ ...currentParams, search: search });
         } else {
-            navigate(currentParams);
+            navigate("?");
         }
+    }
+    const handleKeyDown=(event)=>{
+        if(event.key==="Enter"){
+                handleSearch(event);}
     }
     return (
 
@@ -48,7 +53,9 @@ export default function Search() {
                 className="py-1 px-2 border-0 col-sm-10 col-8 bgSearch h40 outline0"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(event)=>handleKeyDown(event)}
             />
+
             <Button onClick={handleSearch} text={t("Search")} btn="danger" />
         </div>
 

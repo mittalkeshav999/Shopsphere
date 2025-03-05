@@ -48,7 +48,7 @@ export default function Header() {
         </div>
       </div>
   
-      <Search/>
+       <Search/>
 
       <div className="d-flex align-items-center gap-2 justify-content-end ms-auto col-5 col-sm-5 order-2 order-sm-3">
         <div className="m-0 d-none d-lg-block"> <LanguageSelector /></div>

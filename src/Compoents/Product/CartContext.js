@@ -5,14 +5,14 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const toastShown = useRef(false); // Prevent duplicate toast messages
+  const toastShown = useRef(false);
 
   const addToCart = (product, selectedColor, selectedSize) => {
     if (product.colors.length > 0 && !selectedColor) {
       toast.error("Please Select Color");
       return;
     }
-    if (product.colors.length > 0 && !selectedSize) {
+    if (product.sizes.length > 0 &&!selectedSize) {
       toast.error("Please Select Size");
       return;
     }

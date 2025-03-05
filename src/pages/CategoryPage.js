@@ -12,7 +12,7 @@ import "../Compoents/CommonStyle.css"
 // import Button from '../Compoents/Layout/Button';
 
 export default function CategoryPage() {
-  const { t } = useTranslation();
+ const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { product } = useSearch();

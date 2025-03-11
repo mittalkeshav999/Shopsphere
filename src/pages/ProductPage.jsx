@@ -72,7 +72,7 @@ export default function ProductPage() {
           <div className='fs-3'><b>{t(output?.brand)}</b></div>
           <div >{t(output?.name)}</div>
           <div className='w170 d-flex p-1 border border-1 border-dark-subtle'><div className=' d-flex border-end border-dark-subtle border-2 p-1'>{output?.average_rating} <GoStarFill className='mt-1 ms-1' /></div> <div className='p-1 ms-1 d-flex '>{output.total_reviews} <div className='ms-1'> {t("Ratings")}</div></div></div> <hr />
-          <div className='fs-4' > <b>{currencyOptions[currency].symbol} {Number((output?.price.original * currencyOptions[currency].rate).toFixed(2))}</b> {t("MRP")} <span className='text-decoration-line-through'>{currencyOptions[currency].symbol} {Number((output?.price.discounted * currencyOptions[currency].rate).toFixed(2))}</span> <span className='text-warning' >({output.price.discount_percentage}% {t("OFF")})</span> </div>
+          <div className='fs-4' > <b>{currencyOptions[currency].symbol} {Number((output?.price.discounted * currencyOptions[currency].rate).toFixed(2))}</b> {t("MRP")} <span className='text-decoration-line-through'>{currencyOptions[currency].symbol} {Number((output?.price.original * currencyOptions[currency].rate).toFixed(2))}</span> <span className='text-warning' >({output.price.discount_percentage}% {t("OFF")})</span> </div>
           <div className=' fw-bolder text-success'>{t("inclusive")} {t("of")} {t("all")} {t("taxes")}</div>
           {output.colors.length > 0 && <>
             <div className='fs-5 fw-bolder'>{t("SELECT")} {t("COLOR")}</div>

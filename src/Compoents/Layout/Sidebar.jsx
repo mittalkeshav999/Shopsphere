@@ -20,7 +20,7 @@ export default function Sidebar({ categoryProducts, filters, handleBrandChange, 
       return indexA - indexB;
     });
   }, [categoryProducts]);
-
+ 
   const uniqueBrands = useMemo(() => [...new Set(categoryProducts.map(product => product.brand))], [categoryProducts]);
 
   const visibleColors = showAll ? uniqueColors : uniqueColors.slice(0, 5);
